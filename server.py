@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template_string
+from flask import Flask, jsonify, request, render_template_string, render_template, send_from_directory
 from flask_cors import CORS
 from datetime import datetime, timezone
 import time as time_module
@@ -15,7 +15,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-app = Flask(__name__)
+app = Flask(__name__, 
+            static_folder="client",   # serve CSS/JS/images from client/
+            template_folder="client")
+
 CORS(app)
 
 
@@ -207,9 +210,19 @@ def get_now_ist():
     return dt_utc.astimezone(IST)
 
 
-
 @app.route('/', methods=['GET'])
-def homepage():
+def blogifyHomePage():
+    return render_template("index.html")
+
+
+# Serve any file in /client (CSS, JS, images)
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory('client', path)
+
+
+@app.route('/devtools', methods=['GET'])
+def devtools():
     now_ist = get_now_ist().strftime("%Y-%m-%d %H:%M:%S")
     routes = []
     for rule in app.url_map.iter_rules():
