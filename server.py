@@ -3,9 +3,23 @@ from flask_cors import CORS
 from datetime import datetime, timezone
 import time as time_module
 import pytz
+import os
+import sys
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,  # adjust to DEBUG for more verbosity
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
+
 
 app = Flask(__name__)
 CORS(app)
+
+
+DEFAULT_FLASK_PORT = 5000
 
 IST = pytz.timezone("Asia/Kolkata")
 
@@ -259,4 +273,6 @@ def homepage():
 
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    port = int(os.environ.get("PORT", DEFAULT_FLASK_PORT))
+    app.run(host="0.0.0.0", port=port, threaded=True, use_reloader=False)
+    logger.info(f"Flask started at (port={port})")

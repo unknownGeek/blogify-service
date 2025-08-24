@@ -8,6 +8,4 @@ test -d venv && source venv/bin/activate
 pip install -r requirements.txt
 
 # Run the Flask server
-export FLASK_APP=server.py
-export FLASK_ENV=development
-flask run --port=3000
+python server.py 
