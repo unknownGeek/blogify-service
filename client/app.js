@@ -1,6 +1,71 @@
+
 const API_URL = 'https://blogify-service.onrender.com/api';
 // const API_URL = 'http://localhost:5000/api';
 
+// --- Blogify Post Detail Loader for post.html ---
+function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+async function loadPostDetail() {
+    // Only run on post.html
+    if (!window.location.pathname.endsWith('post.html')) return;
+    const postId = getQueryParam('id');
+    if (!postId) return;
+    const res = await fetch(`${API_URL}/posts/${postId}`);
+    if (!res.ok) return;
+    const post = await res.json();
+    const main = document.getElementById('post-detail-main');
+    if (!main) return;
+    main.style.display = 'block';
+    // Header image
+    document.getElementById('post-detail-header').innerHTML = post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : '';
+    // Title
+    document.getElementById('post-detail-title').textContent = post.title;
+    // Meta
+    const date = new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('post-detail-meta').innerHTML = `
+        <div class="author-avatar">${post.author.charAt(0).toUpperCase()}</div>
+        <div>
+            <div><strong>${post.author}</strong></div>
+            <div>${date} <span class="post-detail-category">${post.category}</span></div>
+        </div>
+    `;
+    // Body - handle both plain text and HTML content
+    const contentElement = document.getElementById('post-detail-body');
+    console.log('Post content received:', post.content);
+    console.log('Content type:', typeof post.content);
+    console.log('Content length:', post.content.length);
+    
+    if (post.content.includes('<p>') || post.content.includes('<h2>') || post.content.includes('<ul>')) {
+        // Content already contains HTML, render it directly
+        console.log('Rendering as HTML content');
+        contentElement.innerHTML = post.content;
+        
+        // Force a reflow to ensure content is visible
+        contentElement.style.display = 'none';
+        contentElement.offsetHeight; // Trigger reflow
+        contentElement.style.display = 'block';
+        
+        console.log('Content element height after rendering:', contentElement.offsetHeight);
+        console.log('Content element scroll height:', contentElement.scrollHeight);
+    } else {
+        // Plain text content, split by newlines and wrap in p tags
+        console.log('Rendering as plain text content');
+        contentElement.innerHTML = post.content.split('\n').map(p => `<p>${p}</p>`).join('');
+    }
+    // Stats
+    document.getElementById('post-detail-stats').innerHTML = `
+        <span><i class="fas fa-eye"></i> ${post.views || 0} views</span>
+        <span><i class="fas fa-heart"></i> ${post.likes || 0} likes</span>
+    `;
+}
+
+// Run loader for post.html
+if (window.location.pathname.endsWith('post.html')) {
+    document.addEventListener('DOMContentLoaded', loadPostDetail);
+}
 class Blogify {
     constructor() {
         this.posts = [];
@@ -15,14 +80,49 @@ class Blogify {
         this.currentTab = 'for-you';
         this.searchQuery = '';
         
+        // Loading messages for the loading screen
+        this.loadingMessages = [
+            "Preparing your reading experience...",
+            "Loading amazing stories...",
+            "Setting up your personal feed...",
+            "Gathering fresh content...",
+            "Almost ready...",
+            "Welcome to Blogify!"
+        ];
+        this.currentMessageIndex = 0;
+        
+        // Enhanced loading messages - professional and sophisticated
+        this.enhancedMessages = [
+            "Preparing your reading experience...",
+            "Loading amazing stories...",
+            "Welcome to Blogify!"
+        ];
+        
+        // Dynamic loading messages that change based on progress
+        this.dynamicMessages = [
+            "Crafting beautiful layouts...",
+            "Indexing amazing content...",
+            "Blogify is ready!"
+        ];
+        
         this.init();
     }
 
     async init() {
         this.setupEventListeners();
+        this.startLoadingMessages();
+        
+        // Start the loading screen timer immediately
+        this.startLoadingTimer();
+        
+        // Load posts in parallel
         await this.loadPosts();
         this.updateStats();
-        this.hideLoadingScreen();
+        
+        // Mark that posts are loaded, but don't hide loading screen yet
+        this.postsLoaded = true;
+        
+        // The loading screen will be hidden by the timer after 4 seconds
     }
 
     setupEventListeners() {
@@ -382,41 +482,67 @@ class Blogify {
     openPostDetail(post) {
         const modal = document.getElementById('post-detail-modal');
         const content = document.getElementById('post-detail-content');
-        
         const date = new Date(post.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         });
-
+        // Estimate read time (assume 200 words/min)
+        const wordCount = post.content.split(/\s+/).length;
+        const readTime = Math.max(1, Math.round(wordCount / 200));
+        const maxExcerptLength = 900;
+        // Show only excerpt (up to maxExcerptLength chars, no line breaks)
+        let excerpt = post.content.replace(/\n/g, ' ');
+        if (excerpt.length > maxExcerptLength) {
+            excerpt = excerpt.substring(0, maxExcerptLength) + '...';
+        }
         content.innerHTML = `
-            <div class="post-detail-header">
-                <h2>${post.title}</h2>
-                <div class="post-detail-meta">
-                    <div class="post-detail-author">
-                        <div class="author-avatar">
-                            ${post.author.charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                            <span class="author-name">${post.author}</span>
-                            <span class="post-date">${date}</span>
-                        </div>
+            <div class="popup-card">
+                ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="popup-image">` : ''}
+                <h2 class="popup-title">${post.title}</h2>
+                <div class="popup-meta-row">
+                    <div class="popup-author-avatar">${post.author.charAt(0).toUpperCase()}</div>
+                    <div class="popup-author-info">
+                        <div class="popup-author-name">${post.author}</div>
+                        <div class="popup-date">${date}</div>
                     </div>
-                    <div class="post-detail-stats">
-                        <span><i class="fas fa-eye"></i> ${post.views || 0} views</span>
-                        <span><i class="fas fa-heart"></i> ${post.likes || 0} likes</span>
-                        <span class="post-category">${post.category}</span>
+                    <div class="popup-meta-stats">
+                        <span><i class="fas fa-eye"></i> ${post.views || 0}</span>
+                        <span><i class="fas fa-heart"></i> ${post.likes || 0}</span>
+                        <span><i class="fas fa-clock"></i> ${readTime} min read</span>
                     </div>
                 </div>
-            </div>
-            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="post-detail-image">` : ''}
-            <div class="post-detail-content">
-                ${post.content.split('\n').map(paragraph => `<p>${paragraph}</p>`).join('')}
+                <div class="popup-body">
+                    <p>${excerpt}</p>
+                </div>
+                <div class="popup-actions">
+                    <a href="post.html?id=${post.id}" class="read-detail-btn">
+                        <i class="fas fa-book-open"></i> Read in Detail
+                    </a>
+                </div>
             </div>
         `;
-
-        modal.classList.add('active');
+        // Show modal
+        modal.style.display = 'block';
+        setTimeout(() => modal.classList.add('active'), 10);
         document.body.style.overflow = 'hidden';
+        // Close logic
+        const closeBtn = document.getElementById('close-post-modal');
+        if (closeBtn) {
+            closeBtn.onclick = () => {
+                modal.classList.remove('active');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+                document.body.style.overflow = 'auto';
+            };
+        }
+        // Also close on clicking outside modal-content
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+                document.body.style.overflow = 'auto';
+            }
+        };
     }
 
     toggleMobileMenu() {
@@ -515,10 +641,285 @@ class Blogify {
         };
     }
 
-    hideLoadingScreen() {
+    startLoadingMessages() {
+        // Initialize the first message properly
+        this.initializeFirstMessage();
+        
+        // Start cycling after a delay to avoid immediate repetition
         setTimeout(() => {
-            document.getElementById('loading-screen').classList.add('hidden');
+            this.cycleLoadingMessage();
+            // Change message every 1.2 seconds for 3 messages
+            this.messageInterval = setInterval(() => {
+                this.cycleLoadingMessage();
+            }, 1200);
         }, 1500);
+        
+        // Add interactive effects to floating cards
+        this.addCardInteractions();
+        
+        // Add subtle parallax effect
+        this.addParallaxEffect();
+        
+        // Add dynamic particle effects
+        this.addDynamicParticles();
+        
+        // Add energy pulse effects
+        this.addEnergyPulse();
+    }
+    
+    addDynamicParticles() {
+        // Create additional particles dynamically
+        setInterval(() => {
+            this.createParticle();
+        }, 2000);
+    }
+    
+
+    
+    addEnergyPulse() {
+        // Create energy pulse effect
+        setInterval(() => {
+            this.createEnergyPulse();
+        }, 1500);
+    }
+    
+    createEnergyPulse() {
+        const pulse = document.createElement('div');
+        pulse.className = 'energy-pulse';
+        pulse.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        `;
+        
+        document.querySelector('.loading-screen').appendChild(pulse);
+        
+        // Animate pulse
+        const animation = pulse.animate([
+            { 
+                transform: 'translate(-50%, -50%) scale(0)',
+                opacity: 1 
+            },
+            { 
+                transform: 'translate(-50%, -50%) scale(50)',
+                opacity: 0 
+            }
+        ], {
+            duration: 2000,
+            easing: 'ease-out'
+        });
+        
+        // Remove pulse after animation
+        animation.onfinish = () => pulse.remove();
+    }
+    
+    createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'dynamic-particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = '100%';
+        
+        document.querySelector('.loading-screen').appendChild(particle);
+        
+        // Animate particle
+        const animation = particle.animate([
+            { transform: 'translateY(0px)', opacity: 1 },
+            { transform: 'translateY(-100vh)', opacity: 0 }
+        ], {
+            duration: 3000,
+            easing: 'ease-out'
+        });
+        
+        // Remove particle after animation
+        animation.onfinish = () => particle.remove();
+    }
+    
+    addCardInteractions() {
+        const cards = document.querySelectorAll('.floating-card');
+        cards.forEach((card, index) => {
+            // Add hover effect
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotate(0deg)';
+                card.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotate(0deg)';
+                card.style.zIndex = '1';
+            });
+            
+            // Add click effect
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    }
+    
+    addParallaxEffect() {
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.floating-card');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                
+                // Apply parallax without interfering with existing animations
+                card.style.setProperty('--parallax-x', `${x}px`);
+                card.style.setProperty('--parallax-y', `${y}px`);
+            });
+        });
+    }
+
+    initializeFirstMessage() {
+        const messageElement = document.getElementById('loading-message');
+        if (!messageElement) return;
+        
+        const messageText = messageElement.querySelector('.message-text');
+        if (!messageText) return;
+        
+        // Set the first message from our array
+        messageText.textContent = this.enhancedMessages[0];
+        
+        // Reset the index to start from the beginning
+        this.currentMessageIndex = 0;
+    }
+
+    startLoadingTimer() {
+        // Always wait the full 4 seconds, regardless of when posts load
+        this.loadingTimer = setTimeout(() => {
+            this.hideLoadingScreen();
+        }, 4000);
+    }
+
+    cycleLoadingMessage() {
+        const messageElement = document.getElementById('loading-message');
+        if (!messageElement) return;
+        
+        // Get the message text element
+        const messageText = messageElement.querySelector('.message-text');
+        if (!messageText) return;
+        
+        // Create insane exit animation
+        messageText.style.animation = 'none';
+        messageText.style.transform = 'scale(1.2) rotate(5deg)';
+        messageText.style.filter = 'blur(3px)';
+        messageElement.style.opacity = '0';
+        
+        setTimeout(() => {
+            // Update message with enhanced version
+            this.currentMessageIndex = (this.currentMessageIndex + 1) % this.enhancedMessages.length;
+            
+            // If we've shown all messages, don't cycle further
+            if (this.currentMessageIndex === 0) {
+                // Keep the last message visible
+                messageText.textContent = this.enhancedMessages[2];
+                this.currentMessageIndex = 2;
+            } else {
+                messageText.textContent = this.enhancedMessages[this.currentMessageIndex];
+            }
+            
+            // Reset styles
+            messageText.style.transform = 'scale(0.8) rotate(-5deg)';
+            messageText.style.filter = 'blur(0px)';
+            messageElement.style.opacity = '1';
+            
+            // Add insane entrance animation
+            messageText.style.animation = 'messageEntrance 0.6s ease-out forwards';
+            
+            // Create explosion effect
+            this.createMessageExplosion(messageElement);
+            
+            // Reset animation after entrance
+            setTimeout(() => {
+                messageText.style.animation = 'messageGlow 2s ease-in-out infinite';
+            }, 600);
+        }, 300);
+    }
+    
+    createMessageExplosion() {
+        // Create particle explosion effect
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'explosion-particle';
+            particle.style.cssText = `
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                background: linear-gradient(135deg, #667eea, #764ba2, #4facfe);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 12px rgba(102, 126, 234, 0.6);
+            `;
+            
+            document.querySelector('.loading-screen').appendChild(particle);
+            
+            // Random direction
+            const angle = (i / 8) * Math.PI * 2;
+            const distance = 50 + Math.random() * 30;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            // Animate explosion
+            const animation = particle.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    opacity: 1 
+                },
+                { 
+                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(0)`,
+                    opacity: 0 
+                }
+            ], {
+                duration: 800,
+                easing: 'ease-out'
+            });
+            
+            // Remove particle after animation
+            animation.onfinish = () => particle.remove();
+        }
+    }
+
+    hideLoadingScreen() {
+        // Clear the message interval
+        if (this.messageInterval) {
+            clearInterval(this.messageInterval);
+        }
+        
+        // Clear the loading timer
+        if (this.loadingTimer) {
+            clearTimeout(this.loadingTimer);
+        }
+        
+        // Hide the loading screen immediately
+        document.getElementById('loading-screen').classList.add('hidden');
     }
 }
 

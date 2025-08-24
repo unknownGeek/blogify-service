@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogify - Post Details</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .post-detail-main {
+            width: 95% !important;
+            max-width: 95% !important;
+            margin: 20px auto !important;
+            background: white !important;
+            border-radius: 16px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+            overflow: visible !important;
+            position: relative !important;
+            border: 2px solid #e2e8f0 !important;
+            min-height: auto !important;
+        }
+        .post-detail-header {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        .post-detail-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .post-detail-content {
+            padding: 2rem 3rem !important;
+            background: white !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: auto !important;
+            overflow: visible !important;
+        }
+        .post-detail-title {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 1rem !important;
+            color: #1a1a2e !important;
+            line-height: 1.2 !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .post-detail-meta {
+            display: flex !important;
+            align-items: center !important;
+            gap: 1.5rem !important;
+            margin-bottom: 1.5rem !important;
+            color: #64748b !important;
+            font-size: 1rem !important;
+            padding: 1rem !important;
+            background: #f8fafc !important;
+            border-radius: 12px !important;
+            border: 1px solid #e2e8f0 !important;
+            transition: background-color 0.2s ease !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .post-detail-meta .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #1a8917;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .post-detail-body {
+            font-size: 1.1rem !important;
+            color: #374151 !important;
+            line-height: 1.7 !important;
+            margin-bottom: 2rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            min-height: auto !important;
+            overflow: visible !important;
+        }
+
+        .post-detail-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-detail-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Ensure HTML content renders properly */
+        .post-detail-body h2 {
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            color: #1a1a2e !important;
+            margin: 2rem 0 1rem 0 !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            padding-bottom: 0.5rem !important;
+        }
+
+        .post-detail-body ul {
+            margin: 1rem 0 !important;
+            padding-left: 2rem !important;
+        }
+
+        .post-detail-body li {
+            margin-bottom: 0.5rem !important;
+            line-height: 1.6 !important;
+        }
+
+        .post-detail-body b {
+            font-weight: 700 !important;
+            color: #1a1a2e !important;
+        }
+        .post-detail-actions {
+            display: flex !important;
+            gap: 1rem !important;
+            margin-top: 2rem !important;
+            justify-content: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .back-btn {
+            background: #1a8917;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: #0f5a0d;
+        }
+        /* Simple fade in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .post-detail-main {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Force full width for all content */
+        .post-detail-main * {
+            max-width: 100% !important;
+        }
+
+        /* Ensure content can expand infinitely */
+        .post-detail-main,
+        .post-detail-content,
+        .post-detail-body {
+            height: auto !important;
+            max-height: none !important;
+            min-height: auto !important;
+        }
+
+        /* Remove any potential height constraints */
+        .post-detail-main {
+            height: auto !important;
+            max-height: none !important;
+            min-height: auto !important;
+        }
+
+        /* Ensure paragraphs and content elements flow naturally */
+        .post-detail-body p,
+        .post-detail-body h2,
+        .post-detail-body ul,
+        .post-detail-body li {
+            display: block !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Ensure content elements stretch */
+        .post-detail-title,
+        .post-detail-meta,
+        .post-detail-body,
+        .post-detail-stats,
+        .post-detail-actions {
+            min-width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Force content visibility and expansion */
+        .post-detail-body {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: block !important;
+            position: relative !important;
+            z-index: 1 !important;
+        }
+
+        /* Ensure all content elements are visible */
+        .post-detail-body * {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: block !important;
+        }
+
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .post-detail-main {
+                width: 95vw;
+                max-width: 95vw;
+                margin: 10px auto;
+            }
+
+            .post-detail-header {
+                height: 250px;
+            }
+
+            .post-detail-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .post-detail-title {
+                font-size: 2rem;
+            }
+
+            .post-detail-meta {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .post-detail-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        .post-detail-stats {
+            margin-top: 1.5rem !important;
+            display: flex !important;
+            gap: 2rem !important;
+            color: #64748b !important;
+            font-size: 1rem !important;
+            margin-bottom: 2rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .post-detail-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .post-detail-stats i {
+            color: #1a8917;
+        }
+        .post-detail-category {
+            background: #1a8917;
+            color: white;
+            border-radius: 16px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            margin-left: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="post-detail-main" id="post-detail-main" style="display:none;">
+        <div class="post-detail-header" id="post-detail-header"></div>
+        <div class="post-detail-content">
+            <div class="post-detail-title" id="post-detail-title"></div>
+            <div class="post-detail-meta" id="post-detail-meta"></div>
+            <div class="post-detail-body" id="post-detail-body"></div>
+            <div class="post-detail-stats" id="post-detail-stats"></div>
+            <div class="post-detail-actions">
+                <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Enhanced back button functionality and content loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const backBtn = document.getElementById('back-btn');
+            const main = document.getElementById('post-detail-main');
+            
+            // Show the main content immediately
+            if (main) {
+                main.style.display = 'block';
+            }
+            
+            if (backBtn) {
+                backBtn.addEventListener('click', function() {
+                    // Check if we came from the main page
+                    if (document.referrer && document.referrer.includes('index.html')) {
+                        // Go back to the previous page without reload
+                        window.history.back();
+                    } else {
+                        // If no referrer or came from external source, go to main page
+                        window.location.href = 'index.html';
+                    }
+                });
+
+                // Add hover effect
+                backBtn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 12px rgba(26, 137, 23, 0.3)';
+                });
+
+                backBtn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            }
+
+            // Add smooth scroll behavior
+            document.documentElement.style.scrollBehavior = 'smooth';
+
+            // Add loading state management
+            const loadingStates = {
+                isLoading: false,
+                setLoading: function(loading) {
+                    this.isLoading = loading;
+                    if (loading) {
+                        document.body.style.cursor = 'wait';
+                    } else {
+                        document.body.style.cursor = 'default';
+                    }
+                }
+            };
+
+            // Make stats interactive
+            const statsElements = document.querySelectorAll('.post-detail-stats span');
+            statsElements.forEach(stat => {
+                stat.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#e2e8f0';
+                    this.style.transform = 'translateY(-1px)';
+                });
+
+                stat.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#f8fafc';
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Make meta section interactive
+            const metaSection = document.querySelector('.post-detail-meta');
+            if (metaSection) {
+                metaSection.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f1f5f9';
+                });
+
+                metaSection.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#f8fafc';
+                });
+            }
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
