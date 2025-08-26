@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Prevent loading flash if already seen in this session */
+        .loading-skip #loading-screen { display: none !important; }
+    </style>
+    <script>
+        // Apply as early as possible to avoid 1s flash
+        (function() {
+            try {
+                if (sessionStorage.getItem('blogify_loading_seen')) {
+                    document.documentElement.classList.add('loading-skip');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -217,14 +231,12 @@
                     <h1>Blogify</h1>
                 </div>
             </div>
-            
             <div class="search-container">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" id="search-input" placeholder="Search posts...">
                 </div>
             </div>
-
             <div class="header-right">
                 <button id="write-btn" class="write-btn">
                     <i class="fas fa-pen"></i>

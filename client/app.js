@@ -1,6 +1,6 @@
 
-const API_URL = 'https://blogify-service.onrender.com/api';
-// const API_URL = 'http://localhost:5000/api';
+// const API_URL = 'https://blogify-service.onrender.com/api';
+const API_URL = 'http://localhost:5000/api';
 
 // --- Blogify Post Detail Loader for post.html ---
 function getQueryParam(name) {
@@ -76,7 +76,7 @@ class Blogify {
         this.hasMorePosts = true;
         this.currentCategory = 'all';
         this.currentSort = 'latest';
-        this.currentView = 'list';
+    this.currentView = 'grid';
         this.currentTab = 'for-you';
         this.searchQuery = '';
         
@@ -110,19 +110,43 @@ class Blogify {
 
     async init() {
         this.setupEventListeners();
-        this.startLoadingMessages();
         
-        // Start the loading screen timer immediately
-        this.startLoadingTimer();
+        // Check if user has already seen the loading screen in this session
+        const hasSeenLoading = sessionStorage.getItem('blogify_loading_seen');
+        
+        if (hasSeenLoading) {
+            // User has already seen loading screen, hide it immediately
+            this.hideLoadingScreen();
+            // Ensure main content is visible
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.style.display = 'block';
+            }
+        } else {
+            // First time visit, show loading screen
+            this.startLoadingMessages();
+            this.startLoadingTimer();
+            
+            // Mark that user has seen the loading screen
+            sessionStorage.setItem('blogify_loading_seen', 'true');
+        }
         
         // Load posts in parallel
         await this.loadPosts();
         this.updateStats();
         
-        // Mark that posts are loaded, but don't hide loading screen yet
+        // Mark that posts are loaded
         this.postsLoaded = true;
-        
-        // The loading screen will be hidden by the timer after 4 seconds
+
+        // Set grid view button as active on load
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        const gridBtn = document.querySelector('.view-btn[data-view="grid"]');
+        if (gridBtn) gridBtn.classList.add('active');
+        // Set posts container class
+        const postsContainer = document.getElementById('blog-posts');
+        if (postsContainer) postsContainer.className = 'blog-posts grid-view';
     }
 
     setupEventListeners() {
@@ -308,13 +332,24 @@ class Blogify {
             });
         });
 
-        // Update load more button
-        const loadMoreBtn = document.getElementById('load-more-btn');
-        if (endIndex >= this.filteredPosts.length) {
-            loadMoreBtn.style.display = 'none';
-        } else {
-            loadMoreBtn.style.display = 'block';
+        // Handle spinner for loading more
+        let spinner = document.getElementById('load-more-spinner');
+        if (!spinner) {
+            spinner = document.createElement('div');
+            spinner.id = 'load-more-spinner';
+            spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            spinner.style.display = 'none';
+            spinner.style.textAlign = 'center';
+            spinner.style.margin = '2rem auto';
+            spinner.style.fontSize = '2rem';
+            postsContainer.parentNode.insertBefore(spinner, postsContainer.nextSibling);
         }
+        // Hide spinner by default
+        spinner.style.display = 'none';
+
+        // Hide the old load more button if it exists
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
 
         // Update view class
         postsContainer.className = `blog-posts ${this.currentView}-view`;
@@ -415,9 +450,17 @@ class Blogify {
         if (this.isLoading || !this.hasMorePosts) return;
 
         this.isLoading = true;
-        const loadMoreBtn = document.getElementById('load-more-btn');
-        loadMoreBtn.innerHTML = '<span>Loading...</span><i class="fas fa-spinner fa-spin"></i>';
-        loadMoreBtn.classList.add('loading');
+        let spinner = document.getElementById('load-more-spinner');
+        if (!spinner) {
+            spinner = document.createElement('div');
+            spinner.id = 'load-more-spinner';
+            spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            spinner.style.textAlign = 'center';
+            spinner.style.margin = '2rem auto';
+            spinner.style.fontSize = '2rem';
+            document.getElementById('blog-posts').parentNode.insertBefore(spinner, document.getElementById('blog-posts').nextSibling);
+        }
+        spinner.style.display = 'block';
 
         // Simulate loading delay
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -425,8 +468,7 @@ class Blogify {
         this.currentPage++;
         this.renderPosts();
 
-        loadMoreBtn.innerHTML = '<span>Load More Posts</span><i class="fas fa-chevron-down"></i>';
-        loadMoreBtn.classList.remove('loading');
+        spinner.style.display = 'none';
         this.isLoading = false;
     }
 
@@ -919,7 +961,30 @@ class Blogify {
         }
         
         // Hide the loading screen immediately
-        document.getElementById('loading-screen').classList.add('hidden');
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            // Also set display to none as a fallback
+            loadingScreen.style.display = 'none';
+        }
+    }
+    
+    // Method to reset loading screen state (for testing or manual reset)
+    resetLoadingScreen() {
+        sessionStorage.removeItem('blogify_loading_seen');
+        location.reload();
+    }
+    
+    // Method to manually show loading screen again (for testing)
+    showLoadingScreenAgain() {
+        sessionStorage.removeItem('blogify_loading_seen');
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.remove('hidden');
+        }
+        this.startLoadingMessages();
+        this.startLoadingTimer();
+        sessionStorage.setItem('blogify_loading_seen', 'true');
     }
 }
 

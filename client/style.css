@@ -1174,19 +1174,22 @@ body {
 }
 
 .header-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
     padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: 60px;
+    gap: 0.5rem;
+    justify-content: space-between;
 }
 
 .header-left {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 0 0 auto;
 }
 
 .menu-toggle {
@@ -1226,9 +1229,10 @@ body {
 
 /* Search */
 .search-container {
-    flex: 1;
-    max-width: 400px;
+    flex: 1 1 0%;
+    min-width: 0;
     margin: 0 2rem;
+    max-width: none;
 }
 
 .search-box {
@@ -1266,6 +1270,8 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 0 0 auto;
+    margin-left: 0;
 }
 
 .write-btn {
@@ -1326,10 +1332,11 @@ body {
 /* Main Layout */
 .main-layout {
     display: grid;
-    grid-template-columns: 250px 1fr 300px;
+    grid-template-columns: 290px 1fr 300px;
     gap: 0;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
     min-height: calc(100vh - 60px);
 }
 
@@ -1337,15 +1344,20 @@ body {
 .left-sidebar {
     background: var(--bg-primary);
     border-right: 1px solid var(--border-color);
-    padding: 2rem 0;
+    padding: 2.2rem 1.5rem 2.2rem 1.5rem;
     overflow-y: auto;
     position: sticky;
     top: 60px;
     height: calc(100vh - 60px);
+    width: 290px;
+    min-width: 290px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.03);
 }
 
 .sidebar-nav {
-    padding: 0 1.5rem;
+    padding: 0 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .nav-section {
@@ -1692,7 +1704,7 @@ body {
 .right-sidebar {
     background: var(--bg-primary);
     border-left: 1px solid var(--border-color);
-    padding: 2rem 1.5rem;
+    padding: 2.2rem 1.5rem 2.2rem 1.5rem;
     overflow-y: auto;
     position: sticky;
     top: 60px;
@@ -2361,7 +2373,11 @@ body {
 /* Responsive Design */
 @media (max-width: 1200px) {
     .main-layout {
-        grid-template-columns: 200px 1fr 250px;
+        grid-template-columns: 200px 1fr 220px;
+    }
+    .left-sidebar {
+        width: 200px;
+        min-width: 200px;
     }
 }
 
@@ -2372,9 +2388,10 @@ body {
     
     .left-sidebar {
         position: fixed;
-        left: -250px;
+        left: -200px;
         top: 60px;
-        width: 250px;
+        width: 200px;
+        min-width: 200px;
         z-index: 1000;
         transition: var(--transition);
     }
