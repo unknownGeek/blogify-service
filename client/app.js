@@ -1,6 +1,6 @@
 
-// const API_URL = 'https://blogify-service.onrender.com/api';
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://blogify-service.onrender.com/api';
+// const API_URL = 'http://localhost:5000/api';
 
 // --- Blogify Post Detail Loader for post.html ---
 function getQueryParam(name) {
@@ -564,6 +564,26 @@ class Blogify {
                 </div>
             </div>
         `;
+        // Add floating particles for insane effect
+        const insaneParticles = [];
+        const insaneParticleColors = [
+            'rgba(26,137,23,0.18)',
+            'rgba(180,236,81,0.18)',
+            'rgba(26,137,23,0.13)',
+            'rgba(255,255,255,0.18)'
+        ];
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'insane-particle';
+            p.style.width = `${8 + Math.random() * 18}px`;
+            p.style.height = p.style.width;
+            p.style.background = insaneParticleColors[Math.floor(Math.random() * insaneParticleColors.length)];
+            p.style.left = `${10 + Math.random() * 80}%`;
+            p.style.top = `${10 + Math.random() * 80}%`;
+            p.style.animationDuration = `${4 + Math.random() * 4}s`;
+            document.querySelector('.post-detail-content').appendChild(p);
+            insaneParticles.push(p);
+        }
         // Show modal
         modal.style.display = 'block';
         setTimeout(() => modal.classList.add('active'), 10);
@@ -575,6 +595,8 @@ class Blogify {
                 modal.classList.remove('active');
                 setTimeout(() => { modal.style.display = 'none'; }, 300);
                 document.body.style.overflow = 'auto';
+                // Remove insane particles
+                insaneParticles.forEach(p => p.remove());
             };
         }
         // Also close on clicking outside modal-content
@@ -583,6 +605,7 @@ class Blogify {
                 modal.classList.remove('active');
                 setTimeout(() => { modal.style.display = 'none'; }, 300);
                 document.body.style.overflow = 'auto';
+                insaneParticles.forEach(p => p.remove());
             }
         };
     }
