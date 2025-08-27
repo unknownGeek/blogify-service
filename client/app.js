@@ -1,6 +1,17 @@
 
-const API_URL = 'https://blogify-service.onrender.com/api';
-// const API_URL = 'http://localhost:5000/api';
+// console.log("API_URL is:", window.API_URL);
+
+const API_URL = window.API_URL;
+
+const formatter = new Intl.NumberFormat("en", {
+  notation: "compact",
+  maximumFractionDigits: 1
+});
+
+
+function formatNumber(num) {
+    return formatter.format(num);
+}
 
 // --- Blogify Post Detail Loader for post.html ---
 function getQueryParam(name) {
@@ -60,6 +71,83 @@ async function loadPostDetail() {
         <span><i class="fas fa-eye"></i> ${post.views || 0} views</span>
         <span><i class="fas fa-heart"></i> ${post.likes || 0} likes</span>
     `;
+
+    // Comments Section
+    const commentsDiv = document.getElementById('post-detail-comments');
+        if (Array.isArray(post.comments) && post.comments.length > 0) {
+            commentsDiv.innerHTML = `
+                <div class="collapsible-header" id="comments-header">
+                    <span>Comments <span class="collapsible-arrow" id="comments-arrow">▼</span></span>
+                </div>
+                <div class="comments-list">
+                    ${post.comments.map(c => `
+                        <div class="comment-item">
+                            <div class="comment-avatar">${c.author.charAt(0).toUpperCase()}</div>
+                            <div class="comment-content">
+                                <div class="comment-author">${c.author}</div>
+                                <div class="comment-date">${c.date}</div>
+                                <div class="comment-text">${c.content}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else {
+            commentsDiv.innerHTML = '';
+        }
+
+    // Reviews Section
+    const reviewsDiv = document.getElementById('post-detail-reviews');
+        if (Array.isArray(post.reviews) && post.reviews.length > 0) {
+            reviewsDiv.innerHTML = `
+                <div class="collapsible-header" id="reviews-header">
+                    <span>Reviews <span class="collapsible-arrow" id="reviews-arrow">▼</span></span>
+                </div>
+                <div class="reviews-list">
+                    ${post.reviews.map(r => `
+                        <div class="review-item">
+                            <div class="review-avatar">${r.reviewer.charAt(0).toUpperCase()}</div>
+                            <div class="review-content">
+                                <div class="review-author">${r.reviewer}</div>
+                                <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                                <div class="review-summary">${r.summary}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else {
+            reviewsDiv.innerHTML = '';
+        }
+
+    // Collapsible logic for comments
+    const commentsHeader = document.getElementById('comments-header');
+    if (commentsHeader) {
+        commentsHeader.addEventListener('click', function() {
+            const section = commentsDiv;
+            const arrow = document.getElementById('comments-arrow');
+            section.classList.toggle('collapsed');
+            if (section.classList.contains('collapsed')) {
+                arrow.style.transform = 'rotate(-90deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+    // Collapsible logic for reviews
+    const reviewsHeader = document.getElementById('reviews-header');
+    if (reviewsHeader) {
+        reviewsHeader.addEventListener('click', function() {
+            const section = reviewsDiv;
+            const arrow = document.getElementById('reviews-arrow');
+            section.classList.toggle('collapsed');
+            if (section.classList.contains('collapsed')) {
+                arrow.style.transform = 'rotate(-90deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
 }
 
 // Run loader for post.html
@@ -385,11 +473,11 @@ class Blogify {
                             </span>
                             <span class="post-stat">
                                 <i class="fas fa-eye"></i>
-                                ${post.views || 0}
+                                ${formatNumber(post.views || 0)}
                             </span>
                             <span class="post-stat">
                                 <i class="fas fa-heart"></i>
-                                ${post.likes || 0}
+                                ${formatNumber(post.likes || 0)}
                             </span>
                         </div>
                     </div>
@@ -549,8 +637,8 @@ class Blogify {
                         <div class="popup-date">${date}</div>
                     </div>
                     <div class="popup-meta-stats">
-                        <span><i class="fas fa-eye"></i> ${post.views || 0}</span>
-                        <span><i class="fas fa-heart"></i> ${post.likes || 0}</span>
+                        <span><i class="fas fa-eye"></i> ${formatNumber(post.views || 0)}</span>
+                        <span><i class="fas fa-heart"></i> ${formatNumber(post.likes || 0)}</span>
                         <span><i class="fas fa-clock"></i> ${readTime} min read</span>
                     </div>
                 </div>
@@ -626,9 +714,9 @@ class Blogify {
             totalViews: this.posts.reduce((sum, post) => sum + (post.views || 0), 0)
         };
 
-        document.getElementById('total-posts').textContent = stats.totalPosts;
-        document.getElementById('total-authors').textContent = stats.totalAuthors;
-        document.getElementById('total-views').textContent = stats.totalViews.toLocaleString();
+        document.getElementById('total-posts').textContent = formatNumber(stats.totalPosts);
+        document.getElementById('total-authors').textContent = formatNumber(stats.totalAuthors);
+        document.getElementById('total-views').textContent = formatNumber(stats.totalViews);
     }
 
     handleFollow(button) {

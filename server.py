@@ -435,7 +435,7 @@ def generate_uuid():
 
 posts = [
     {
-        "id": generate_uuid(),
+        "id": "b1a1e1c2-1f2a-4c3b-8d4e-5f6a7b8c9d01",
         "title": "The Future of Artificial Intelligence in 2025",
         "author": "Dr. Sarah Chen",
         "date": "August 24, 2025",
@@ -443,10 +443,50 @@ posts = [
         "content": ai_content,
         "imageUrl": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop",
         "views": 1200,
-        "likes": 210
+        "likes": 210,
+        "comments": [
+            {
+                "id": "cmt-001",
+                "author": "Jane Doe",
+                "date": "August 25, 2025",
+                "content": "Excellent insights on the future of AI. Well researched and engaging!"
+            },
+            {
+                "id": "cmt-002",
+                "author": "Michael Smith",
+                "date": "August 26, 2025",
+                "content": "I appreciate the focus on ethical challenges. Looking forward to more articles like this."
+            },
+            {
+                "id": "cmt-021",
+                "author": "Sophia Turner",
+                "date": "August 27, 2025",
+                "content": "The section on AI in healthcare was particularly interesting."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-001",
+                "reviewer": "TechReviewPro",
+                "rating": 5,
+                "summary": "A comprehensive and forward-thinking analysis of AI trends for 2025."
+            },
+            {
+                "id": "rev-019",
+                "reviewer": "AI Digest",
+                "rating": 4,
+                "summary": "Strong coverage of ethical and practical AI challenges."
+            },
+            {
+                "id": "rev-020",
+                "reviewer": "FutureTech",
+                "rating": 5,
+                "summary": "Must-read for anyone interested in the future of technology."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "c2b2f2d3-2e3b-5d4c-9e5f-6a7b8c9d0e12",
         "title": "Sustainable Living: A Complete Guide to Eco-Friendly Practices",
         "author": "Emma Rodriguez",
         "date": "August 23, 2025",
@@ -454,10 +494,50 @@ posts = [
         "content": sustainable_living_content,
         "imageUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop",
         "views": 980,
-        "likes": 175
+        "likes": 175,
+        "comments": [
+            {
+                "id": "cmt-003",
+                "author": "Lucas Green",
+                "date": "August 24, 2025",
+                "content": "Very practical guide. The tips on sustainable food choices are easy to follow."
+            },
+            {
+                "id": "cmt-022",
+                "author": "Priya Nair",
+                "date": "August 25, 2025",
+                "content": "Loved the eco-friendly home section!"
+            },
+            {
+                "id": "cmt-023",
+                "author": "Ben Carter",
+                "date": "August 26, 2025",
+                "content": "Great ideas for reducing waste."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-002",
+                "reviewer": "EcoLiving Magazine",
+                "rating": 4,
+                "summary": "A well-structured and actionable guide for eco-friendly living."
+            },
+            {
+                "id": "rev-021",
+                "reviewer": "Green Home Review",
+                "rating": 5,
+                "summary": "Practical and inspiring eco tips."
+            },
+            {
+                "id": "rev-022",
+                "reviewer": "Sustainability Hub",
+                "rating": 4,
+                "summary": "Covers all the basics for sustainable living."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "d3c3a3e4-3f4c-6e5d-0f1a-7b8c9d0e1f23",
         "title": "Exploring the Hidden Gems of Southeast Asia",
         "author": "Marcus Thompson",
         "date": "August 22, 2025",
@@ -465,10 +545,50 @@ posts = [
         "content": blog_southeast_asia,
         "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
         "views": 860,
-        "likes": 142
+        "likes": 142,
+        "comments": [
+            {
+                "id": "cmt-004",
+                "author": "Priya Singh",
+                "date": "August 23, 2025",
+                "content": "Loved the hidden gems list! Added a few to my travel bucket list."
+            },
+            {
+                "id": "cmt-024",
+                "author": "Marco Rossi",
+                "date": "August 24, 2025",
+                "content": "Great travel inspiration!"
+            },
+            {
+                "id": "cmt-025",
+                "author": "Emily White",
+                "date": "August 25, 2025",
+                "content": "Photos are stunning."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-003",
+                "reviewer": "Travel Weekly",
+                "rating": 5,
+                "summary": "Inspires readers to explore beyond the usual tourist spots."
+            },
+            {
+                "id": "rev-023",
+                "reviewer": "Wanderlust",
+                "rating": 4,
+                "summary": "Great for off-the-beaten-path travelers."
+            },
+            {
+                "id": "rev-024",
+                "reviewer": "Explorer's Digest",
+                "rating": 5,
+                "summary": "A must-read for travel enthusiasts."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "e4d4b4f5-4a5d-7f6e-1b2c-8c9d0e1f2a34",
         "title": "The Art of Mindful Cooking: Recipes for the Soul",
         "author": "Chef Isabella Martinez",
         "date": "August 21, 2025",
@@ -476,10 +596,50 @@ posts = [
         "content": blog_mindful_cooking,
         "imageUrl": "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=2025&auto=format&fit=crop",
         "views": 740,
-        "likes": 120
+        "likes": 120,
+        "comments": [
+            {
+                "id": "cmt-005",
+                "author": "Emily Brown",
+                "date": "August 22, 2025",
+                "content": "Mindful cooking is so important. Thanks for the recipes!"
+            },
+            {
+                "id": "cmt-026",
+                "author": "Liam Chen",
+                "date": "August 23, 2025",
+                "content": "The soup recipe was delicious!"
+            },
+            {
+                "id": "cmt-027",
+                "author": "Sofia Martinez",
+                "date": "August 24, 2025",
+                "content": "Cooking with intention makes a difference."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-004",
+                "reviewer": "Culinary Today",
+                "rating": 4,
+                "summary": "A refreshing take on cooking with mindfulness and intention."
+            },
+            {
+                "id": "rev-025",
+                "reviewer": "Foodie Journal",
+                "rating": 5,
+                "summary": "Unique approach to recipes and cooking."
+            },
+            {
+                "id": "rev-026",
+                "reviewer": "Mindful Eats",
+                "rating": 4,
+                "summary": "Great for anyone looking to slow down in the kitchen."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "f5e5c5a6-5b6e-8a7f-2c3d-9d0e1f2a3b45",
         "title": "Building Resilience: Mental Health Strategies for Modern Life",
         "author": "Dr. James Wilson",
         "date": "August 20, 2025",
@@ -487,10 +647,50 @@ posts = [
         "content": blog_resilience,
         "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
         "views": 670,
-        "likes": 110
+        "likes": 110,
+        "comments": [
+            {
+                "id": "cmt-006",
+                "author": "Sophie Turner",
+                "date": "August 21, 2025",
+                "content": "Great mental health strategies. The self-compassion section resonated with me."
+            },
+            {
+                "id": "cmt-028",
+                "author": "James Patel",
+                "date": "August 22, 2025",
+                "content": "The resilience exercises are very helpful."
+            },
+            {
+                "id": "cmt-029",
+                "author": "Maria Lopez",
+                "date": "August 23, 2025",
+                "content": "Loved the focus on mental well-being."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-005",
+                "reviewer": "MindMatters Blog",
+                "rating": 5,
+                "summary": "Essential reading for anyone looking to build resilience."
+            },
+            {
+                "id": "rev-027",
+                "reviewer": "Wellness Central",
+                "rating": 4,
+                "summary": "Practical advice for modern life."
+            },
+            {
+                "id": "rev-028",
+                "reviewer": "Mental Health Review",
+                "rating": 5,
+                "summary": "A must-read for stress management."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "a6f6d6b7-6c7f-9b8a-3d4e-0e1f2a3b4c56",
         "title": "The Rise of Remote Work: Transforming the Future of Business",
         "author": "Alexandra Kim",
         "date": "August 19, 2025",
@@ -498,10 +698,50 @@ posts = [
         "content": remote_work_content,
         "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop",
         "views": 900,
-        "likes": 160
+        "likes": 160,
+        "comments": [
+            {
+                "id": "cmt-007",
+                "author": "David Lee",
+                "date": "August 20, 2025",
+                "content": "Remote work tips are spot on. Hybrid model is the way forward."
+            },
+            {
+                "id": "cmt-030",
+                "author": "Olivia Brown",
+                "date": "August 21, 2025",
+                "content": "Insightful look at remote work culture."
+            },
+            {
+                "id": "cmt-031",
+                "author": "Henry Adams",
+                "date": "August 22, 2025",
+                "content": "The productivity tips are very useful."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-006",
+                "reviewer": "Business Insights",
+                "rating": 4,
+                "summary": "Balanced perspective on the future of remote and hybrid work."
+            },
+            {
+                "id": "rev-029",
+                "reviewer": "Workplace Today",
+                "rating": 5,
+                "summary": "Covers all the key trends in remote work."
+            },
+            {
+                "id": "rev-030",
+                "reviewer": "Modern Business Review",
+                "rating": 4,
+                "summary": "Great for business leaders and employees alike."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "b7a7e7c8-7d8a-0c9b-4e5f-1f2a3b4c5d67",
         "title": "The Evolution of Digital Entertainment: From Streaming to Virtual Reality",
         "author": "David Park",
         "date": "August 18, 2025",
@@ -509,10 +749,50 @@ posts = [
         "content": blog_digital_entertainment,
         "imageUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2028&auto=format&fit=crop",
         "views": 1050,
-        "likes": 200
+        "likes": 200,
+        "comments": [
+            {
+                "id": "cmt-008",
+                "author": "Nina Patel",
+                "date": "August 19, 2025",
+                "content": "Fascinating look at how entertainment is evolving."
+            },
+            {
+                "id": "cmt-032",
+                "author": "Lucas Meyer",
+                "date": "August 20, 2025",
+                "content": "Virtual reality section was eye-opening."
+            },
+            {
+                "id": "cmt-033",
+                "author": "Ava Brooks",
+                "date": "August 21, 2025",
+                "content": "Streaming trends are well explained."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-007",
+                "reviewer": "Digital Media Review",
+                "rating": 5,
+                "summary": "Captures the rapid changes in digital entertainment."
+            },
+            {
+                "id": "rev-031",
+                "reviewer": "Entertainment Weekly",
+                "rating": 4,
+                "summary": "Great overview of new media formats."
+            },
+            {
+                "id": "rev-032",
+                "reviewer": "VR World",
+                "rating": 5,
+                "summary": "Virtual reality coverage is top-notch."
+            }
+        ]
     },
-    {
-        "id": generate_uuid(),
+{
+        "id": "c8b8f8d9-8e9b-1d0c-5f6a-2a3b4c5d6e78",
         "title": "The Science of Sleep: Optimizing Your Rest for Better Health",
         "author": "Dr. Rachel Green",
         "date": "August 17, 2025",
@@ -520,118 +800,558 @@ posts = [
         "content": blog_sleep_science,
         "imageUrl": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=2068&auto=format&fit=crop",
         "views": 800,
-        "likes": 130
+        "likes": 130,
+        "comments": [
+            {
+                "id": "cmt-009",
+                "author": "Olga Ivanova",
+                "date": "August 18, 2025",
+                "content": "Helpful sleep tips. I’ll try the bedtime routine advice."
+            },
+            {
+                "id": "cmt-034",
+                "author": "Sam Lee",
+                "date": "August 19, 2025",
+                "content": "The science behind sleep was fascinating."
+            },
+            {
+                "id": "cmt-035",
+                "author": "Grace Kim",
+                "date": "August 20, 2025",
+                "content": "I’ll be sharing these tips with friends."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-008",
+                "reviewer": "Healthline",
+                "rating": 4,
+                "summary": "Practical and science-backed sleep optimization guide."
+            },
+            {
+                "id": "rev-033",
+                "reviewer": "Sleep Science Today",
+                "rating": 5,
+                "summary": "Excellent breakdown of sleep cycles."
+            },
+            {
+                "id": "rev-034",
+                "reviewer": "Restful Living",
+                "rating": 4,
+                "summary": "Easy to follow and actionable advice."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "Climate Change: What You Can Do Today",
-            "author": "Priya Nair",
-            "date": "August 16, 2025",
-            "category": "environment",
-            "content": climate_change_content,
-            "imageUrl": "https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=2070&auto=format&fit=crop",
-            "views": 650,
-            "likes": 105
+{
+        "id": "d9c9a9e0-9f0c-2e1d-6a7b-3b4c5d6e7f89",
+        "title": "Climate Change: What You Can Do Today",
+        "author": "Priya Nair",
+        "date": "August 16, 2025",
+        "category": "environment",
+        "content": climate_change_content,
+        "imageUrl": "https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=2070&auto=format&fit=crop",
+        "views": 650,
+        "likes": 105,
+        "comments": [
+            {
+                "id": "cmt-010",
+                "author": "Rajiv Menon",
+                "date": "August 17, 2025",
+                "content": "Simple steps for climate action. Well written!"
+            },
+            {
+                "id": "cmt-036",
+                "author": "Ella Brown",
+                "date": "August 18, 2025",
+                "content": "The infographic was very helpful."
+            },
+            {
+                "id": "cmt-037",
+                "author": "Tom Green",
+                "date": "August 19, 2025",
+                "content": "Motivating and easy to follow."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-009",
+                "reviewer": "Green Planet Journal",
+                "rating": 4,
+                "summary": "Concise and motivating call to climate action."
+            },
+            {
+                "id": "rev-035",
+                "reviewer": "Eco Action Review",
+                "rating": 5,
+                "summary": "Great for anyone wanting to make a difference."
+            },
+            {
+                "id": "rev-036",
+                "reviewer": "Climate Today",
+                "rating": 4,
+                "summary": "Actionable and inspiring."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "The Power of Mindfulness in Daily Life",
-            "author": "Samantha Lee",
-            "date": "August 15, 2025",
-            "category": "wellness",
-            "content": mindfulness_content,
-            "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
-            "views": 720,
-            "likes": 115
+{
+        "id": "e0d0b0f1-0a1d-3f2e-7b8c-4c5d6e7f8a90",
+        "title": "The Power of Mindfulness in Daily Life",
+        "author": "Samantha Lee",
+        "date": "August 15, 2025",
+        "category": "wellness",
+        "content": mindfulness_content,
+        "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
+        "views": 720,
+        "likes": 115,
+        "comments": [
+            {
+                "id": "cmt-011",
+                "author": "Linda Wu",
+                "date": "August 16, 2025",
+                "content": "Mindfulness tips are easy to implement. Thank you!"
+            },
+            {
+                "id": "cmt-038",
+                "author": "Ravi Kumar",
+                "date": "August 17, 2025",
+                "content": "The breathing exercise was calming."
+            },
+            {
+                "id": "cmt-039",
+                "author": "Julia Smith",
+                "date": "August 18, 2025",
+                "content": "Great reminders for daily mindfulness."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-010",
+                "reviewer": "Wellness Weekly",
+                "rating": 5,
+                "summary": "A gentle introduction to mindfulness for daily life."
+            },
+            {
+                "id": "rev-037",
+                "reviewer": "Mindful Living",
+                "rating": 4,
+                "summary": "Simple and effective mindfulness tips."
+            },
+            {
+                "id": "rev-038",
+                "reviewer": "Zen Journal",
+                "rating": 5,
+                "summary": "Perfect for beginners."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "How to Start Investing: A Beginner’s Guide",
-            "author": "Carlos Mendoza",
-            "date": "August 14, 2025",
-            "category": "finance",
-            "content": investing_content,
-            "imageUrl": "https://images.unsplash.com/photo-1556740772-1a741367b93e?q=80&w=2070&auto=format&fit=crop",
-            "views": 810,
-            "likes": 125
+{
+        "id": "f1e1c1a2-1b2e-4d3f-8c9d-5d6e7f8a9b01",
+        "title": "How to Start Investing: A Beginner’s Guide",
+        "author": "Carlos Mendoza",
+        "date": "August 14, 2025",
+        "category": "finance",
+        "content": investing_content,
+        "imageUrl": "https://images.unsplash.com/photo-1556740772-1a741367b93e?q=80&w=2070&auto=format&fit=crop",
+        "views": 810,
+        "likes": 125,
+        "comments": [
+            {
+                "id": "cmt-012",
+                "author": "George Carter",
+                "date": "August 15, 2025",
+                "content": "Great beginner’s guide. The diversification tip is key."
+            },
+            {
+                "id": "cmt-040",
+                "author": "Mina Patel",
+                "date": "August 16, 2025",
+                "content": "Easy to understand for new investors."
+            },
+            {
+                "id": "cmt-041",
+                "author": "Robert Lee",
+                "date": "August 17, 2025",
+                "content": "The risk management section was helpful."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-011",
+                "reviewer": "Finance Today",
+                "rating": 4,
+                "summary": "Clear and concise investing basics for newcomers."
+            },
+            {
+                "id": "rev-039",
+                "reviewer": "Investor's Digest",
+                "rating": 5,
+                "summary": "Great for those starting out in finance."
+            },
+            {
+                "id": "rev-040",
+                "reviewer": "Money Matters",
+                "rating": 4,
+                "summary": "Covers all the essentials."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "The Magic of Reading: Why Books Still Matter",
-            "author": "Ava Patel",
-            "date": "August 13, 2025",
-            "category": "literature",
-            "content": reading_content,
-            "imageUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?q=80&w=2070&auto=format&fit=crop",
-            "views": 690,
-            "likes": 108
+{
+        "id": "a2f2d2b3-2c3f-5e4a-9b0c-6e7f8a9b0c12",
+        "title": "The Magic of Reading: Why Books Still Matter",
+        "author": "Ava Patel",
+        "date": "August 13, 2025",
+        "category": "literature",
+        "content": reading_content,
+        "imageUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?q=80&w=2070&auto=format&fit=crop",
+        "views": 690,
+        "likes": 108,
+        "comments": [
+            {
+                "id": "cmt-013",
+                "author": "Sara Kim",
+                "date": "August 14, 2025",
+                "content": "Books really do matter. Inspiring post!"
+            },
+            {
+                "id": "cmt-042",
+                "author": "Liam Carter",
+                "date": "August 15, 2025",
+                "content": "Loved the book recommendations."
+            },
+            {
+                "id": "cmt-043",
+                "author": "Emily Zhang",
+                "date": "August 16, 2025",
+                "content": "Reading is my favorite hobby!"
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-012",
+                "reviewer": "Bookworm Central",
+                "rating": 5,
+                "summary": "A heartfelt reminder of the power of reading."
+            },
+            {
+                "id": "rev-041",
+                "reviewer": "Readers' Review",
+                "rating": 4,
+                "summary": "Great for book lovers of all ages."
+            },
+            {
+                "id": "rev-042",
+                "reviewer": "Literary Digest",
+                "rating": 5,
+                "summary": "Inspires a love for reading."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "Fitness at Home: Effective Workouts Without Equipment",
-            "author": "Liam Johnson",
-            "date": "August 12, 2025",
-            "category": "fitness",
-            "content": fitness_content,
-            "imageUrl": "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop",
-            "views": 540,
-            "likes": 90
+{
+        "id": "b3a3e3c4-3d4a-6f5b-0c1d-7f8a9b0c1d23",
+        "title": "Fitness at Home: Effective Workouts Without Equipment",
+        "author": "Liam Johnson",
+        "date": "August 12, 2025",
+        "category": "fitness",
+        "content": fitness_content,
+        "imageUrl": "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop",
+        "views": 540,
+        "likes": 90,
+        "comments": [
+            {
+                "id": "cmt-014",
+                "author": "Tommy Nguyen",
+                "date": "August 13, 2025",
+                "content": "Home workouts are underrated. Thanks for the motivation!"
+            },
+            {
+                "id": "cmt-044",
+                "author": "Samantha Lee",
+                "date": "August 14, 2025",
+                "content": "The no-equipment tips are great!"
+            },
+            {
+                "id": "cmt-045",
+                "author": "Carlos Gomez",
+                "date": "August 15, 2025",
+                "content": "I started a new routine thanks to this post."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-013",
+                "reviewer": "Fitness Focus",
+                "rating": 4,
+                "summary": "Effective and accessible fitness tips for everyone."
+            },
+            {
+                "id": "rev-043",
+                "reviewer": "HomeFit Review",
+                "rating": 5,
+                "summary": "Perfect for busy people."
+            },
+            {
+                "id": "rev-044",
+                "reviewer": "Workout Weekly",
+                "rating": 4,
+                "summary": "Motivating and practical."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "Traveling on a Budget: Tips for Affordable Adventures",
-            "author": "Sofia Rossi",
-            "date": "August 11, 2025",
-            "category": "travel",
-            "content": budget_travel_content,
-            "imageUrl": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2070&auto=format&fit=crop",
-            "views": 600,
-            "likes": 98
+{
+        "id": "c4b4f4d5-4e5b-7a6c-1d2e-8a9b0c1d2e34",
+        "title": "Traveling on a Budget: Tips for Affordable Adventures",
+        "author": "Sofia Rossi",
+        "date": "August 11, 2025",
+        "category": "travel",
+        "content": budget_travel_content,
+        "imageUrl": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2070&auto=format&fit=crop",
+        "views": 600,
+        "likes": 98,
+        "comments": [
+            {
+                "id": "cmt-015",
+                "author": "Anna Petrova",
+                "date": "August 12, 2025",
+                "content": "Budget travel tips are super useful."
+            },
+            {
+                "id": "cmt-046",
+                "author": "Marta Rossi",
+                "date": "August 13, 2025",
+                "content": "Loved the packing checklist!"
+            },
+            {
+                "id": "cmt-047",
+                "author": "John Smith",
+                "date": "August 14, 2025",
+                "content": "Great advice for solo travelers."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-014",
+                "reviewer": "Travel Smart",
+                "rating": 4,
+                "summary": "Great resource for affordable travel planning."
+            },
+            {
+                "id": "rev-045",
+                "reviewer": "Budget Explorer",
+                "rating": 5,
+                "summary": "Perfect for students and families."
+            },
+            {
+                "id": "rev-046",
+                "reviewer": "Adventure Digest",
+                "rating": 4,
+                "summary": "Covers all the essentials for affordable travel."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "Plant-Based Eating: Health Benefits and Easy Recipes",
-            "author": "Maya Kim",
-            "date": "August 10, 2025",
-            "category": "food",
-            "content": plant_based_content,
-            "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop",
-            "views": 510,
-            "likes": 85
+{
+        "id": "d5c5a5e6-5f6c-8b7a-2e3f-9b0c1d2e3f45",
+        "title": "Plant-Based Eating: Health Benefits and Easy Recipes",
+        "author": "Maya Kim",
+        "date": "August 10, 2025",
+        "category": "food",
+        "content": plant_based_content,
+        "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop",
+        "views": 510,
+        "likes": 85,
+        "comments": [
+            {
+                "id": "cmt-016",
+                "author": "Javier Morales",
+                "date": "August 11, 2025",
+                "content": "Plant-based recipes are delicious and easy!"
+            },
+            {
+                "id": "cmt-048",
+                "author": "Nina Patel",
+                "date": "August 12, 2025",
+                "content": "The lentil soup recipe is my favorite."
+            },
+            {
+                "id": "cmt-049",
+                "author": "Oscar Rivera",
+                "date": "August 13, 2025",
+                "content": "Great for anyone new to plant-based eating."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-015",
+                "reviewer": "Healthy Eats",
+                "rating": 5,
+                "summary": "Inspires readers to try plant-based meals."
+            },
+            {
+                "id": "rev-047",
+                "reviewer": "Plant Power Review",
+                "rating": 4,
+                "summary": "Easy recipes and great health tips."
+            },
+            {
+                "id": "rev-048",
+                "reviewer": "Green Kitchen",
+                "rating": 5,
+                "summary": "Perfect for families."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "The Rise of E-Sports: Gaming as a Global Phenomenon",
-            "author": "Ethan Wang",
-            "date": "August 9, 2025",
-            "category": "entertainment",
-            "content": esports_content,
-            "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2070&auto=format&fit=crop",
-            "views": 950,
-            "likes": 180
+{
+        "id": "e6d6b6f7-6a7d-9c8b-3f4a-0c1d2e3f4a56",
+        "title": "The Rise of E-Sports: Gaming as a Global Phenomenon",
+        "author": "Ethan Wang",
+        "date": "August 9, 2025",
+        "category": "entertainment",
+        "content": esports_content,
+        "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2070&auto=format&fit=crop",
+        "views": 950,
+        "likes": 180,
+        "comments": [
+            {
+                "id": "cmt-017",
+                "author": "Chris Evans",
+                "date": "August 10, 2025",
+                "content": "E-sports is the future! Well covered."
+            },
+            {
+                "id": "cmt-050",
+                "author": "Alex Kim",
+                "date": "August 11, 2025",
+                "content": "Loved the section on global tournaments."
+            },
+            {
+                "id": "cmt-051",
+                "author": "Mia Chen",
+                "date": "August 12, 2025",
+                "content": "Streaming tips were very useful."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-016",
+                "reviewer": "GameOn Magazine",
+                "rating": 5,
+                "summary": "Captures the excitement and growth of e-sports."
+            },
+            {
+                "id": "rev-049",
+                "reviewer": "E-Sports Central",
+                "rating": 4,
+                "summary": "Great for new fans of e-sports."
+            },
+            {
+                "id": "rev-050",
+                "reviewer": "Pro Gamer Review",
+                "rating": 5,
+                "summary": "Covers all the latest trends."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "Remote Learning: Adapting to the New Normal",
-            "author": "Olivia Smith",
-            "date": "August 8, 2025",
-            "category": "education",
-            "content": remote_learning_content,
-            "imageUrl": "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=2070&auto=format&fit=crop",
-            "views": 430,
-            "likes": 70
+{
+        "id": "f7e7c7a8-7b8e-0d9c-4a5b-1d2e3f4a5b67",
+        "title": "Remote Learning: Adapting to the New Normal",
+        "author": "Olivia Smith",
+        "date": "August 8, 2025",
+        "category": "education",
+        "content": remote_learning_content,
+        "imageUrl": "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=2070&auto=format&fit=crop",
+        "views": 430,
+        "likes": 70,
+        "comments": [
+            {
+                "id": "cmt-018",
+                "author": "Megan Fox",
+                "date": "August 9, 2025",
+                "content": "Remote learning tips are very helpful for students."
+            },
+            {
+                "id": "cmt-052",
+                "author": "Daniel Lee",
+                "date": "August 10, 2025",
+                "content": "The study space advice was spot on."
+            },
+            {
+                "id": "cmt-053",
+                "author": "Priya Singh",
+                "date": "August 11, 2025",
+                "content": "Break tips helped me avoid burnout."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-017",
+                "reviewer": "EdTech Review",
+                "rating": 4,
+                "summary": "Practical advice for adapting to online education."
+            },
+            {
+                "id": "rev-051",
+                "reviewer": "Online Learning Hub",
+                "rating": 5,
+                "summary": "Great for teachers and students alike."
+            },
+            {
+                "id": "rev-052",
+                "reviewer": "Digital Classroom",
+                "rating": 4,
+                "summary": "Covers all the essentials for remote learning."
+            }
+        ]
     },
-    {
-            "id": generate_uuid(),
-            "title": "The Art of Minimalism: Living More with Less",
-            "author": "Noah Williams",
-            "date": "August 7, 2025",
-            "category": "lifestyle",
-            "content": minimalism_content,
-            "imageUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?q=80&w=2070&auto=format&fit=crop",
-            "views": 520,
-            "likes": 88
-    }
+{
+        "id": "a8f8d8b9-8c9f-1b0a-5c6d-2e3f4a5b6c78",
+        "title": "The Art of Minimalism: Living More with Less",
+        "author": "Noah Williams",
+        "date": "August 7, 2025",
+        "category": "lifestyle",
+        "content": minimalism_content,
+        "imageUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?q=80&w=2070&auto=format&fit=crop",
+        "views": 520,
+        "likes": 88,
+        "comments": [
+            {
+                "id": "cmt-019",
+                "author": "William Harris",
+                "date": "August 8, 2025",
+                "content": "Minimalism changed my life. Great article!"
+            },
+            {
+                "id": "cmt-054",
+                "author": "Sophie Brown",
+                "date": "August 9, 2025",
+                "content": "Decluttering tips were very helpful."
+            },
+            {
+                "id": "cmt-055",
+                "author": "Noah Kim",
+                "date": "August 10, 2025",
+                "content": "Minimalism is a journey, thanks for the inspiration."
+            }
+        ],
+        "reviews": [
+            {
+                "id": "rev-018",
+                "reviewer": "Simple Living Journal",
+                "rating": 5,
+                "summary": "Inspires readers to embrace a minimalist lifestyle."
+            },
+            {
+                "id": "rev-053",
+                "reviewer": "Minimalist Review",
+                "rating": 4,
+                "summary": "Great for anyone starting with minimalism."
+            },
+            {
+                "id": "rev-054",
+                "reviewer": "Clarity Magazine",
+                "rating": 5,
+                "summary": "Beautifully written and inspiring."
+            }
+        ]
+}
 ]
 
 infinite_posts = posts * 100  # Simulate a larger dataset by repeating the sample posts
@@ -747,6 +1467,14 @@ def get_now_ist():
 @app.route('/', methods=['GET'])
 def blogifyHomePage():
     return render_template("index.html")
+
+
+# Dynamically generate config.js
+@app.route('/config.js')
+def config():
+    api_url = os.getenv("API_URL", "https://blogify-service.onrender.com/api")
+    js = f"window.API_URL = '{api_url}';"
+    return js, 200, {"Content-Type": "application/javascript"}
 
 
 # Serve any file in /client (CSS, JS, images)

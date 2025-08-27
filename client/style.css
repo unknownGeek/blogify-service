@@ -2220,19 +2220,17 @@ body {
 
 /* Post Detail Modal */
 .post-detail-content {
-    max-width: 1000px;
+    max-width: 900px;
     max-height: 90vh;
     padding: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(40px);
-    border-radius: 32px;
-    box-shadow: 
-        0 40px 80px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(26,137,23,0.10), 0 1.5px 8px rgba(26,137,23,0.06);
+    border: 1.5px solid #e6f4ea;
     overflow: hidden;
     position: relative;
+    z-index: 1002;
+}
 }
 
 .post-detail-content::before {

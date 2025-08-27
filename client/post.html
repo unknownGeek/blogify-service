@@ -16,21 +16,22 @@
         }
 
         .post-detail-main {
-            width: 95% !important;
-            max-width: 95% !important;
-            margin: 20px auto !important;
-            background: white !important;
-            border-radius: 16px !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
+            margin: 0 auto !important;
+            background: linear-gradient(135deg, #f8fafc 0%, #e6f4ea 100%) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
             overflow: visible !important;
             position: relative !important;
-            border: 2px solid #e2e8f0 !important;
+            border: none !important;
             min-height: auto !important;
+            padding: 0 !important;
         }
         .post-detail-header {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 700px;
             overflow: hidden;
         }
         .post-detail-header img {
@@ -39,14 +40,80 @@
             object-fit: cover;
         }
         .post-detail-content {
-            padding: 2rem 3rem !important;
-            background: white !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
+            margin: 0 auto !important;
+            margin-top: -80px !important;
+            max-width: 900px !important;
+            background: #fff !important;
+            border-radius: 28px !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+            border: 1.5px solid #e6f4ea !important;
+            padding: 2.5rem 3rem 2.5rem 3rem !important;
             display: flex !important;
             flex-direction: column !important;
             min-height: auto !important;
             overflow: visible !important;
+        }
+        .post-header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .header-container {
+            width: 100%;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            gap: 0.5rem;
+            justify-content: space-between;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 0 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a8917 !important;
+        }
+        .logo i {
+            font-size: 1.8rem;
+        }
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 0 0 auto;
+            margin-left: auto;
+        }
+        .home-btn, .share-btn, .copy-link-btn {
+            background: #f8fafc;
+            color: #1a8917;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(26,137,23,0.06);
+        }
+        .home-btn:hover, .share-btn:hover, .copy-link-btn:hover {
+            background: #1a8917;
+            color: #fff;
         }
         .post-detail-title {
             font-family: 'Playfair Display', serif !important;
@@ -118,6 +185,86 @@
         .post-detail-body ul {
             margin: 1rem 0 !important;
             padding-left: 2rem !important;
+        }
+        /* Professional Comments/Reviews Styling */
+        .comments-list, .reviews-list {
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .comment-item, .review-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 12px rgba(26,137,23,0.06);
+            padding: 1.2rem 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+        .comment-item:hover, .review-item:hover {
+            box-shadow: 0 6px 24px rgba(26,137,23,0.13);
+        }
+        .comment-avatar, .review-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1abc9c 60%, #16a085 100%);
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(26,137,23,0.10);
+        }
+        .comment-content, .review-content {
+            flex: 1;
+        }
+        .comment-author, .review-author {
+            font-weight: 700;
+            color: #1a8917;
+            font-size: 1.08rem;
+            margin-bottom: 0.1rem;
+        }
+        .comment-date, .review-rating {
+            font-size: 0.97rem;
+            color: #64748b;
+            margin-bottom: 0.3rem;
+        }
+        .comment-text, .review-summary {
+            font-size: 1.08rem;
+            color: #374151;
+        }
+        .review-rating {
+            letter-spacing: 0.08em;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Scrollable section for comments/reviews with sticky header */
+        .scrollable-section {
+            max-height: 350px;
+            overflow-y: auto;
+            background: #f8fafc;
+            border-radius: 20px;
+            margin-top: 2.5rem;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 6px 32px rgba(26,137,23,0.08), 0 1.5px 0 rgba(255,255,255,0.12);
+            position: relative;
+        }
+        .scrollable-section .collapsible-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        @media (max-width: 768px) {
+            .scrollable-section {
+                max-height: 220px;
+            }
         }
 
         .post-detail-body li {
@@ -290,9 +437,54 @@
             margin-left: 0.8rem;
             font-weight: 600;
         }
+                /* Section headers for comments/reviews */
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 2rem 0.7rem 2rem;
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #1a8917;
+            background: #f8fafc;
+            border-radius: 20px 20px 0 0;
+            border-bottom: 1.5px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 8px rgba(26,137,23,0.03);
+            cursor: pointer;
+            user-select: none;
+        }
+        .collapsible-arrow {
+            font-size: 1.18rem;
+            margin-left: 0.5rem;
+            color: #1a8917;
+            transition: transform 0.2s;
+        }
+        .collapsible-header:hover {
+            background: #e6f4ea;
+        }
     </style>
 </head>
 <body>
+    <!-- Blogify Header -->
+    <header class="header post-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="logo" style="text-decoration:none; color:inherit;">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h1>Blogify</h1>
+                </a>
+            </div>
+            <div class="header-right">
+                <button class="home-btn" id="home-btn" title="Home"><i class="fas fa-home"></i></button>
+                <button class="share-btn" id="share-btn" title="Share"><i class="fas fa-share-alt"></i></button>
+                <button class="copy-link-btn" id="copy-link-btn" title="Copy Link"><i class="fas fa-link"></i></button>
+            </div>
+        </div>
+    </header>
     <div class="post-detail-main" id="post-detail-main" style="display:none;">
         <div class="post-detail-header" id="post-detail-header"></div>
         <div class="post-detail-content">
@@ -300,12 +492,31 @@
             <div class="post-detail-meta" id="post-detail-meta"></div>
             <div class="post-detail-body" id="post-detail-body"></div>
             <div class="post-detail-stats" id="post-detail-stats"></div>
+            <div id="post-detail-comments" class="scrollable-section"></div>
+            <div id="post-detail-reviews" class="scrollable-section"></div>
             <div class="post-detail-actions">
-                <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                <!-- Back button removed for cleaner UI -->
             </div>
         </div>
     </div>
     <script>
+        // Header button functionality
+        document.getElementById('home-btn').onclick = function() { window.location.href = 'index.html'; };
+        document.getElementById('share-btn').onclick = function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                });
+            } else {
+                alert('Sharing is not supported in this browser.');
+            }
+        };
+        document.getElementById('copy-link-btn').onclick = function() {
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                alert('Link copied to clipboard!');
+            });
+        };
         // Enhanced back button functionality and content loading
         document.addEventListener('DOMContentLoaded', function() {
             const backBtn = document.getElementById('back-btn');
