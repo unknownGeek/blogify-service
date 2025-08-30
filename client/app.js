@@ -68,8 +68,8 @@ async function loadPostDetail() {
     }
     // Stats
     document.getElementById('post-detail-stats').innerHTML = `
-        <span><i class="fas fa-eye"></i> ${post.views || 0} views</span>
-        <span><i class="fas fa-heart"></i> ${post.likes || 0} likes</span>
+        <span><i class="fas fa-eye"></i> ${formatNumber(post.views || 0)} views</span>
+        <span><i class="fas fa-heart"></i> ${formatNumber(post.likes || 0)} likes</span>
     `;
 
     // Comments Section
