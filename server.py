@@ -1547,6 +1547,12 @@ def devtools():
     )
 
 
+
+@app.route('/sse-interview-dpp', methods=['GET'])
+def sse_interview_dpp():
+    return render_template("SSE_60Day_FullPlan.html")
+
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", DEFAULT_FLASK_PORT))
     app.run(host="0.0.0.0", port=port, threaded=True, use_reloader=False)
