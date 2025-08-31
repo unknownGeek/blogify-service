@@ -3011,6 +3011,49 @@ document.querySelectorAll('section.day details summary').forEach(sum => {
   <footer>
     © 2025 SSE Interview Coach — Built for confidence and daily momentum. Pro tip: collapse days you've finished!
   </footer>
+  </script>
+  <style>
+  @media (max-width: 600px) {
+    .day-card {
+      width: 98vw !important;
+      min-width: 0 !important;
+      max-width: 100vw !important;
+      margin-left: 1vw !important;
+      margin-right: 1vw !important;
+      box-sizing: border-box !important;
+      padding: 0.5em 0.2em !important;
+      font-size: 0.97em;
+    }
+    .day-card .grid {
+      padding: 0 !important;
+    }
+    .day-card table.plan {
+      display: block;
+      width: 100% !important;
+      overflow-x: auto;
+      font-size: 0.97em;
+      border-collapse: collapse;
+    }
+    .day-card table.plan thead, .day-card table.plan tbody, .day-card table.plan tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .day-card table.plan td, .day-card table.plan th {
+      word-break: break-word;
+      padding: 0.4em 0.2em;
+      font-size: 0.97em;
+    }
+    .day-summary .title {
+      font-size: 1em !important;
+      white-space: normal !important;
+    }
+    .badge {
+      font-size: 0.95em !important;
+      padding: 0.2em 0.6em !important;
+    }
+  }
+  </style>
 </script>
 </body>
 </html>
