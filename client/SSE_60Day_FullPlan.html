@@ -34,7 +34,7 @@
     margin: 0 auto;
     padding: 0 16px;
   }
-  h1 { font-size: 28px; margin: 0 0 6px; }
+  h1 { font-size: 28px; margin: 0 0 6px; text-align: center; }
   .sub {
     color: var(--muted);
     font-size: 14px;
@@ -219,14 +219,107 @@
   }
 </style>
 </head>
+<style>
+
+body {
+  padding-left: 240px;
+  padding-right: 220px;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 22px 14px 28px 20px; 
+  border-radius: 0 22px 22px 0;
+  font-size: 1rem;
+  box-shadow: 0 6px 32px 0 #06b6d422, 2px 0 12px 0 #a78bfa22;
+  background: none;
+  backdrop-filter: blur(12px) saturate(1.2);
+  border: 1.5px solid #e0e7efcc;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.left-sidebar {
+  left: 0;
+  border-radius: 0 22px 22px 0;
+  border-right: 2.5px solid #a78bfa33;
+}
+.right-sidebar {
+  right: 0;
+  left: unset;
+  border-radius: 22px 0 0 22px;
+  border-left: 2.5px solid #06b6d433;
+  box-shadow: 0 6px 32px 0 #a78bfa22, -2px 0 12px 0 #06b6d422;
+}
+.sidebar h3 {
+  margin-top: 0;
+  font-size: 1.13em;
+  color: #06b6d4;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.8em;
+  font-weight: 700;
+  text-shadow: 0 2px 8px #a78bfa22;
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar nav ul li {
+  margin-bottom: 0.7em;
+}
+.sidebar nav ul li:last-child {
+  margin-bottom: 2.2em;
+}
+.sidebar nav ul li a {
+  color: #334155;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: block;
+  font-weight: 500;
+  background: linear-gradient(90deg, #e0e7ef00 60%, #a78bfa0a 100%);
+  box-shadow: 0 1px 4px 0 #06b6d40a;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+.sidebar nav ul li a:hover, .sidebar nav ul li a:focus {
+  background: linear-gradient(90deg, #a78bfa33 0%, #06b6d433 100%);
+  color: #7c3aed;
+  box-shadow: 0 2px 8px 0 #a78bfa22;
+}
+@media (max-width: 900px) {
+  .sidebar, body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .sidebar {
+    display: none;
+  }
+}
+</style>
 <body>
+  <!-- Sidebars for quick navigation -->
+  <aside id="sidebar-dsa" class="sidebar left-sidebar">
+    <h3>DSA</h3>
+    <nav><ul id="sidebar-dsa-list"></ul></nav>
+    <h3 style="margin-top:2.2em; color:#a78bfa;">LLD</h3>
+    <nav><ul id="sidebar-lld-list"></ul></nav>
+    <h3 style="margin-top:2.2em; color:#10b981;">HLD</h3>
+    <nav><ul id="sidebar-hld-list"></ul></nav>
+  </aside>
+  <aside id="sidebar-rotating" class="sidebar right-sidebar">
+    <h3>Rotating Topics</h3>
+    <nav><ul id="sidebar-rotating-list"></ul></nav>
+  </aside>
 <div id="particle-bg"></div>
 <header>
   <div class="header-glow"></div>
   <div class="container">
-    <h1>60-Day SSE Interview Prep Plan</h1>
+    <h1>60-Day SSE Interview DPP</h1>
     <div class="sub">Daily: <strong>DSA</strong> + <strong>LLD</strong> + <strong>HLD</strong> + <strong>1 rotating topic</strong> (Design Pattern, Advanced Java, Concurrency, Solr, Cassandra, Kafka, SQL, Docker, Kubernetes, Microservices, REST APIs, Spring Boot). Difficulty ramps gradually within SSE scope.</div>
-    <div class="muted" style="margin-top:6px;">Generated on 2025-08-31 12:30</div>
+    <div class="muted" style="margin-top:6px;">Generated on 2025-08-31 17:30</div>
   </div>
 </header>
 <nav class="toc">
@@ -235,6 +328,50 @@
   </div>
 </nav>
 <main class="container">
+<script>
+// --- Sidebar Rotating Topic population ---
+document.addEventListener('DOMContentLoaded', function() {
+  const rotatingList = document.getElementById('sidebar-rotating-list');
+  document.querySelectorAll('section.day').forEach(section => {
+    const dayId = section.id;
+    const dayNum = section.querySelector('.badge')?.textContent?.replace('Day ','') || '';
+    const rows = section.querySelectorAll('table.plan tbody tr');
+    rows.forEach(row => {
+      const type = row.querySelector('td strong')?.textContent?.trim();
+      const title = row.querySelector('td div strong')?.textContent?.trim();
+      if (type === 'Rotating Topic' && title) {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#${dayId}">Day ${dayNum}: ${title}</a>`;
+        rotatingList.appendChild(li);
+      }
+    });
+  });
+});
+// --- Sidebar DSA/LLD/HLD population ---
+document.addEventListener('DOMContentLoaded', function() {
+  function escapeHtml(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  const dsaList = document.getElementById('sidebar-dsa-list');
+  const lldList = document.getElementById('sidebar-lld-list');
+  const hldList = document.getElementById('sidebar-hld-list');
+  document.querySelectorAll('section.day').forEach(section => {
+    const dayId = section.id;
+    const dayNum = section.querySelector('.badge')?.textContent?.replace('Day ','') || '';
+    const rows = section.querySelectorAll('table.plan tbody tr');
+    rows.forEach(row => {
+      const type = row.querySelector('td strong')?.textContent?.trim();
+      const title = row.querySelector('td div strong')?.textContent?.trim();
+      if (!type || !title) return;
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="#${dayId}">Day ${dayNum}: ${escapeHtml(title)}</a>`;
+      if (type === 'DSA') dsaList.appendChild(li);
+      else if (type === 'LLD') lldList.appendChild(li);
+      else if (type === 'HLD') hldList.appendChild(li);
+    });
+  });
+});
+</script>
   <!-- Day cards: lazy loading and animated reveal -->
   <section id="day-1" class="day day-card">
       <details open>
@@ -269,7 +406,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Design Pattern</strong><br/>Implement Strategy + Observer around a pricing/notification domain. Unit test swapping strategies without touching clients.</div></td>
-      <td>—</td>
+  <td>Dynamic pricing engines, notification systems, and plug-and-play business logic where strategies or observers change at runtime.</td>
       <td><a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a> • <a href="https://sourcemaking.com/design_patterns" target="_blank" rel="noopener">Head First Design Patterns Notes</a></td>
     </tr>
             </tbody>
@@ -311,7 +448,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Advanced Java</strong><br/>Explore JVM memory (heap, metaspace), class loading, JIT; write a micro-benchmark of String vs StringBuilder concatenation.</div></td>
-      <td>—</td>
+  <td>Performance tuning in enterprise Java apps, optimizing backend services, and understanding memory/CPU trade-offs in production systems.</td>
       <td><a href="https://docs.oracle.com/javase/specs/" target="_blank" rel="noopener">JVM Spec (overview)</a> • <a href="https://openjdk.org/projects/code-tools/jmh/" target="_blank" rel="noopener">JMH Intro</a></td>
     </tr>
             </tbody>
@@ -353,7 +490,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Concurrency &amp; Multithreading</strong><br/>Build a bounded thread pool demo; compare synchronized vs ReentrantLock; show visibility with volatile.</div></td>
-      <td>—</td>
+  <td>Building scalable chat/messaging platforms, real-time collaboration tools, and distributed systems requiring concurrency control.</td>
       <td><a href="https://jcip.github.io/" target="_blank" rel="noopener">Java Concurrency in Practice (notes)</a> • <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html" target="_blank" rel="noopener">java.util.concurrent</a></td>
     </tr>
             </tbody>
@@ -395,7 +532,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Solr</strong><br/>Run Solr in Docker; create a core; index sample JSON; test analyzers &amp; facets.</div></td>
-      <td>—</td>
+  <td>Search engines, e-commerce product search, log analytics, and any system requiring fast, flexible text search and faceting.</td>
       <td><a href="https://solr.apache.org/guide/" target="_blank" rel="noopener">Solr Guide</a> • <a href="https://hub.docker.com/_/solr" target="_blank" rel="noopener">Solr Docker</a></td>
     </tr>
             </tbody>
@@ -437,7 +574,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Cassandra</strong><br/>Model a table for user_events with proper partition key; write queries; test CL=QUORUM reads/writes.</div></td>
-      <td>—</td>
+  <td>Distributed databases, event sourcing, and high-availability systems where partition tolerance and tunable consistency are critical.</td>
       <td><a href="https://cassandra.apache.org/doc/latest/" target="_blank" rel="noopener">Cassandra Docs</a> • <a href="https://www.datastax.com/learn/data-modeling-by-example" target="_blank" rel="noopener">Data Modeling</a></td>
     </tr>
             </tbody>
@@ -479,7 +616,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Kafka</strong><br/>Write a producer &amp; consumer; demonstrate consumer groups and rebalancing; handle offsets safely.</div></td>
-      <td>—</td>
+  <td>Event-driven architectures, real-time analytics, and data pipelines in organizations processing large-scale streaming data.</td>
       <td><a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener">Kafka Docs</a> • <a href="https://www.confluent.io/blog/" target="_blank" rel="noopener">Confluent Patterns</a></td>
     </tr>
             </tbody>
@@ -521,7 +658,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>SQL Queries Practice</strong><br/>Practice joins, window functions, indexing &amp; EXPLAIN on sample schema; optimize a slow query.</div></td>
-      <td>—</td>
+  <td>API development for SaaS products, public web services, and internal microservices requiring robust, scalable, and maintainable interfaces.</td>
       <td><a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> • <a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a></td>
     </tr>
             </tbody>
@@ -563,7 +700,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Docker</strong><br/>Create multi-stage build for a Spring Boot app; add HEALTHCHECK; test graceful shutdown.</div></td>
-      <td>—</td>
+  <td>Containerized deployments, CI/CD pipelines, and scalable infrastructure management in cloud-native environments.</td>
       <td><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Dockerfile Best Practices</a></td>
     </tr>
             </tbody>
@@ -605,7 +742,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Kubernetes</strong><br/>Deploy app with Deployment + Service; add readiness/liveness probes; rolling update.</div></td>
-      <td>—</td>
+  <td>Microservices-based architectures, distributed teams, and organizations needing modular, independently deployable services.</td>
       <td><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">K8s Docs</a></td>
     </tr>
             </tbody>
@@ -647,7 +784,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Microservices</strong><br/>Draw service boundaries for a small e-commerce; define contracts, versioning, and observability (metrics, logs, traces).</div></td>
-      <td>—</td>
+  <td>Automated testing, continuous integration, and quality assurance in software development lifecycles.</td>
       <td><a href="https://microservices.io/" target="_blank" rel="noopener">Microservices.io</a></td>
     </tr>
             </tbody>
@@ -687,9 +824,9 @@
       <td><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">System Design Primer</a> • <a href="https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers" target="_blank" rel="noopener">Educative Grokking SD</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>REST APIs</strong><br/>Define REST guidelines; build a small API with pagination, filtering, error envelopes, idempotent PUT/PATCH.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>REST APIs</strong><br/>Define REST guidelines; build a small API with pagination, filtering, error envelopes, idempotent PUT/PATCH.</div></td>
+  <td>API development for SaaS products, public web services, and internal microservices requiring robust, scalable, and maintainable interfaces.</td>
       <td><a href="https://github.com/microsoft/api-guidelines" target="_blank" rel="noopener">Microsoft REST Guidelines</a></td>
     </tr>
             </tbody>
@@ -729,9 +866,9 @@
       <td><a href="https://www.youtube.com/watch?v=vvhC64hQZMk" target="_blank" rel="noopener">Gaurav Sen Chat SD</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Spring Boot</strong><br/>Create Orders API with validation and @ControllerAdvice; profiles dev/test; write slice tests.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Spring Boot</strong><br/>Create Orders API with validation and @ControllerAdvice; profiles dev/test; write slice tests.</div></td>
+  <td>Building production-grade Java microservices, rapid prototyping, and enterprise backend development with robust configuration and testing support.</td>
       <td><a href="https://www.baeldung.com/" target="_blank" rel="noopener">Baeldung Spring Guides</a> • <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener">Spring Docs</a></td>
     </tr>
             </tbody>
@@ -771,9 +908,9 @@
       <td><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">System Design Primer</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Design Pattern</strong><br/>Implement Strategy + Observer around a pricing/notification domain. Unit test swapping strategies without touching clients.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Design Pattern</strong><br/>Implement Strategy + Observer around a pricing/notification domain. Unit test swapping strategies without touching clients.</div></td>
+  <td>Dynamic pricing engines, notification systems, and plug-and-play business logic where strategies or observers change at runtime.</td>
       <td><a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a> • <a href="https://sourcemaking.com/design_patterns" target="_blank" rel="noopener">Head First Design Patterns Notes</a></td>
     </tr>
             </tbody>
@@ -813,9 +950,9 @@
       <td><a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener">Outbox Pattern</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Advanced Java</strong><br/>Explore JVM memory (heap, metaspace), class loading, JIT; write a micro-benchmark of String vs StringBuilder concatenation.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Advanced Java</strong><br/>Explore JVM memory (heap, metaspace), class loading, JIT; write a micro-benchmark of String vs StringBuilder concatenation.</div></td>
+  <td>Performance tuning in enterprise Java apps, optimizing backend services, and understanding memory/CPU trade-offs in production systems.</td>
       <td><a href="https://docs.oracle.com/javase/specs/" target="_blank" rel="noopener">JVM Spec (overview)</a> • <a href="https://openjdk.org/projects/code-tools/jmh/" target="_blank" rel="noopener">JMH Intro</a></td>
     </tr>
             </tbody>
@@ -855,9 +992,9 @@
       <td><a href="https://stripe.com/blog/idempotency" target="_blank" rel="noopener">Idempotency Keys</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Concurrency &amp; Multithreading</strong><br/>Build a bounded thread pool demo; compare synchronized vs ReentrantLock; show visibility with volatile.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Concurrency &amp; Multithreading</strong><br/>Build a bounded thread pool demo; compare synchronized vs ReentrantLock; show visibility with volatile.</div></td>
+  <td>Building scalable chat/messaging platforms, real-time collaboration tools, and distributed systems requiring concurrency control.</td>
       <td><a href="https://jcip.github.io/" target="_blank" rel="noopener">Java Concurrency in Practice (notes)</a> • <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html" target="_blank" rel="noopener">java.util.concurrent</a></td>
     </tr>
             </tbody>
@@ -897,9 +1034,9 @@
       <td><a href="https://en.wikipedia.org/wiki/Geohash" target="_blank" rel="noopener">Geohash Basics</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Solr</strong><br/>Run Solr in Docker; create a core; index sample JSON; test analyzers &amp; facets.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Solr</strong><br/>Run Solr in Docker; create a core; index sample JSON; test analyzers &amp; facets.</div></td>
+  <td>Search engines, e-commerce product search, log analytics, and any system requiring fast, flexible text search and faceting.</td>
       <td><a href="https://solr.apache.org/guide/" target="_blank" rel="noopener">Solr Guide</a> • <a href="https://hub.docker.com/_/solr" target="_blank" rel="noopener">Solr Docker</a></td>
     </tr>
             </tbody>
@@ -939,9 +1076,9 @@
       <td><a href="https://redis.io/docs/management/scaling/" target="_blank" rel="noopener">Redis Cluster</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Cassandra</strong><br/>Model a table for user_events with proper partition key; write queries; test CL=QUORUM reads/writes.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Cassandra</strong><br/>Model a table for user_events with proper partition key; write queries; test CL=QUORUM reads/writes.</div></td>
+  <td>Distributed databases, event sourcing, and high-availability systems where partition tolerance and tunable consistency are critical.</td>
       <td><a href="https://cassandra.apache.org/doc/latest/" target="_blank" rel="noopener">Cassandra Docs</a> • <a href="https://www.datastax.com/learn/data-modeling-by-example" target="_blank" rel="noopener">Data Modeling</a></td>
     </tr>
             </tbody>
@@ -981,9 +1118,9 @@
       <td><a href="https://kafka.apache.org/documentation/streams/" target="_blank" rel="noopener">Kafka Streams 101</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Kafka</strong><br/>Write a producer &amp; consumer; demonstrate consumer groups and rebalancing; handle offsets safely.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Kafka</strong><br/>Write a producer &amp; consumer; demonstrate consumer groups and rebalancing; handle offsets safely.</div></td>
+  <td>Event-driven architectures, real-time analytics, and data pipelines in organizations processing large-scale streaming data.</td>
       <td><a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener">Kafka Docs</a> • <a href="https://www.confluent.io/blog/" target="_blank" rel="noopener">Confluent Patterns</a></td>
     </tr>
             </tbody>
@@ -1023,9 +1160,9 @@
       <td><a href="https://datatracker.ietf.org/doc/html/rfc8216" target="_blank" rel="noopener">HLS Spec</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>SQL Queries Practice</strong><br/>Practice joins, window functions, indexing &amp; EXPLAIN on sample schema; optimize a slow query.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>SQL Queries Practice</strong><br/>Practice joins, window functions, indexing &amp; EXPLAIN on sample schema; optimize a slow query.</div></td>
+  <td>Data analysis, reporting, and performance optimization in business intelligence, analytics, and backend engineering roles.</td>
       <td><a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> • <a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a></td>
     </tr>
             </tbody>
@@ -1065,9 +1202,9 @@
       <td><a href="https://en.wikipedia.org/wiki/Content-addressable_storage" target="_blank" rel="noopener">Content-addressable Storage</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Docker</strong><br/>Create multi-stage build for a Spring Boot app; add HEALTHCHECK; test graceful shutdown.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Docker</strong><br/>Create multi-stage build for a Spring Boot app; add HEALTHCHECK; test graceful shutdown.</div></td>
+  <td>Containerized deployments, CI/CD pipelines, and scalable infrastructure management in cloud-native environments.</td>
       <td><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Dockerfile Best Practices</a></td>
     </tr>
             </tbody>
@@ -1107,9 +1244,9 @@
       <td><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">System Design Primer</a> • <a href="https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers" target="_blank" rel="noopener">Educative Grokking SD</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Kubernetes</strong><br/>Deploy app with Deployment + Service; add readiness/liveness probes; rolling update.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Kubernetes</strong><br/>Deploy app with Deployment + Service; add readiness/liveness probes; rolling update.</div></td>
+  <td>Microservices-based architectures, distributed teams, and organizations needing modular, independently deployable services.</td>
       <td><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">K8s Docs</a></td>
     </tr>
             </tbody>
@@ -1149,9 +1286,9 @@
       <td><a href="https://www.youtube.com/watch?v=vvhC64hQZMk" target="_blank" rel="noopener">Gaurav Sen Chat SD</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Microservices</strong><br/>Draw service boundaries for a small e-commerce; define contracts, versioning, and observability (metrics, logs, traces).</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Microservices</strong><br/>Draw service boundaries for a small e-commerce; define contracts, versioning, and observability (metrics, logs, traces).</div></td>
+  <td>Automated testing, continuous integration, and quality assurance in software development lifecycles.</td>
       <td><a href="https://microservices.io/" target="_blank" rel="noopener">Microservices.io</a></td>
     </tr>
             </tbody>
@@ -1193,7 +1330,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>REST APIs</strong><br/>Define REST guidelines; build a small API with pagination, filtering, error envelopes, idempotent PUT/PATCH.</div></td>
-      <td>—</td>
+  <td>Enterprise search, e-commerce product search, log analytics, and content management systems requiring fast, full-text search and faceted navigation.</td>
       <td><a href="https://github.com/microsoft/api-guidelines" target="_blank" rel="noopener">Microsoft REST Guidelines</a></td>
     </tr>
             </tbody>
@@ -1235,7 +1372,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Spring Boot</strong><br/>Create Orders API with validation and @ControllerAdvice; profiles dev/test; write slice tests.</div></td>
-      <td>—</td>
+  <td>Distributed databases for high-write, high-availability use cases such as IoT, recommendation engines, and time-series data in large-scale applications.</td>
       <td><a href="https://www.baeldung.com/" target="_blank" rel="noopener">Baeldung Spring Guides</a> • <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener">Spring Docs</a></td>
     </tr>
             </tbody>
@@ -1277,7 +1414,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Design Pattern</strong><br/>Implement Strategy + Observer around a pricing/notification domain. Unit test swapping strategies without touching clients.</div></td>
-      <td>—</td>
+  <td>Event streaming, log aggregation, real-time analytics, and decoupled microservices communication in scalable distributed systems.</td>
       <td><a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a> • <a href="https://sourcemaking.com/design_patterns" target="_blank" rel="noopener">Head First Design Patterns Notes</a></td>
     </tr>
             </tbody>
@@ -1317,9 +1454,9 @@
       <td><a href="https://en.wikipedia.org/wiki/Geohash" target="_blank" rel="noopener">Geohash Basics</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Advanced Java</strong><br/>Explore JVM memory (heap, metaspace), class loading, JIT; write a micro-benchmark of String vs StringBuilder concatenation.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Advanced Java</strong><br/>Explore JVM memory (heap, metaspace), class loading, JIT; write a micro-benchmark of String vs StringBuilder concatenation.</div></td>
+  <td>Performance tuning in enterprise Java apps, optimizing backend services, and understanding memory/CPU trade-offs in production systems.</td>
       <td><a href="https://docs.oracle.com/javase/specs/" target="_blank" rel="noopener">JVM Spec (overview)</a> • <a href="https://openjdk.org/projects/code-tools/jmh/" target="_blank" rel="noopener">JMH Intro</a></td>
     </tr>
             </tbody>
@@ -1359,9 +1496,9 @@
       <td><a href="https://redis.io/docs/management/scaling/" target="_blank" rel="noopener">Redis Cluster</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Concurrency &amp; Multithreading</strong><br/>Build a bounded thread pool demo; compare synchronized vs ReentrantLock; show visibility with volatile.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Concurrency &amp; Multithreading</strong><br/>Build a bounded thread pool demo; compare synchronized vs ReentrantLock; show visibility with volatile.</div></td>
+  <td>Building scalable chat/messaging platforms, real-time collaboration tools, and distributed systems requiring concurrency control.</td>
       <td><a href="https://jcip.github.io/" target="_blank" rel="noopener">Java Concurrency in Practice (notes)</a> • <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html" target="_blank" rel="noopener">java.util.concurrent</a></td>
     </tr>
             </tbody>
@@ -1403,7 +1540,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Solr</strong><br/>Run Solr in Docker; create a core; index sample JSON; test analyzers &amp; facets.</div></td>
-      <td>—</td>
+  <td>Hands-on SQL optimization, analytics, and reporting for business intelligence, data warehousing, and application performance tuning.</td>
       <td><a href="https://solr.apache.org/guide/" target="_blank" rel="noopener">Solr Guide</a> • <a href="https://hub.docker.com/_/solr" target="_blank" rel="noopener">Solr Docker</a></td>
     </tr>
             </tbody>
@@ -1445,7 +1582,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Cassandra</strong><br/>Model a table for user_events with proper partition key; write queries; test CL=QUORUM reads/writes.</div></td>
-      <td>—</td>
+  <td>Containerized deployments, CI/CD pipelines, and scalable infrastructure management in cloud-native environments.</td>
       <td><a href="https://cassandra.apache.org/doc/latest/" target="_blank" rel="noopener">Cassandra Docs</a> • <a href="https://www.datastax.com/learn/data-modeling-by-example" target="_blank" rel="noopener">Data Modeling</a></td>
     </tr>
             </tbody>
@@ -1487,7 +1624,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Kafka</strong><br/>Write a producer &amp; consumer; demonstrate consumer groups and rebalancing; handle offsets safely.</div></td>
-      <td>—</td>
+  <td>Orchestrating containerized workloads, automating deployments, scaling, and managing microservices in production environments.</td>
       <td><a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener">Kafka Docs</a> • <a href="https://www.confluent.io/blog/" target="_blank" rel="noopener">Confluent Patterns</a></td>
     </tr>
             </tbody>
@@ -1529,7 +1666,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>SQL Queries Practice</strong><br/>Practice joins, window functions, indexing &amp; EXPLAIN on sample schema; optimize a slow query.</div></td>
-      <td>—</td>
+  <td>Performance tuning in enterprise Java apps, optimizing backend services, and understanding memory/CPU trade-offs in production systems.</td>
       <td><a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> • <a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a></td>
     </tr>
             </tbody>
@@ -1571,7 +1708,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Docker</strong><br/>Create multi-stage build for a Spring Boot app; add HEALTHCHECK; test graceful shutdown.</div></td>
-      <td>—</td>
+  <td>Building scalable chat/messaging platforms, real-time collaboration tools, and distributed systems requiring concurrency control.</td>
       <td><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Dockerfile Best Practices</a></td>
     </tr>
             </tbody>
@@ -1613,7 +1750,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Kubernetes</strong><br/>Deploy app with Deployment + Service; add readiness/liveness probes; rolling update.</div></td>
-      <td>—</td>
+  <td>API development for SaaS products, public web services, and internal microservices requiring robust, scalable, and maintainable interfaces.</td>
       <td><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">K8s Docs</a></td>
     </tr>
             </tbody>
@@ -1653,9 +1790,9 @@
       <td><a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener">Outbox Pattern</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Microservices</strong><br/>Draw service boundaries for a small e-commerce; define contracts, versioning, and observability (metrics, logs, traces).</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Microservices</strong><br/>Draw service boundaries for a small e-commerce; define contracts, versioning, and observability (metrics, logs, traces).</div></td>
+  <td>Automated testing, continuous integration, and quality assurance in software development lifecycles.</td>
       <td><a href="https://microservices.io/" target="_blank" rel="noopener">Microservices.io</a></td>
     </tr>
             </tbody>
@@ -1695,9 +1832,9 @@
       <td><a href="https://stripe.com/blog/idempotency" target="_blank" rel="noopener">Idempotency Keys</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>REST APIs</strong><br/>Define REST guidelines; build a small API with pagination, filtering, error envelopes, idempotent PUT/PATCH.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>REST APIs</strong><br/>Define REST guidelines; build a small API with pagination, filtering, error envelopes, idempotent PUT/PATCH.</div></td>
+  <td>API development for SaaS products, public web services, and internal microservices requiring robust, scalable, and maintainable interfaces.</td>
       <td><a href="https://github.com/microsoft/api-guidelines" target="_blank" rel="noopener">Microsoft REST Guidelines</a></td>
     </tr>
             </tbody>
@@ -1737,9 +1874,9 @@
       <td><a href="https://en.wikipedia.org/wiki/Geohash" target="_blank" rel="noopener">Geohash Basics</a></td>
     </tr>
               <tr>
-      <td><strong>Rotating Topic</strong></td>
-      <td><div><strong>Spring Boot</strong><br/>Create Orders API with validation and @ControllerAdvice; profiles dev/test; write slice tests.</div></td>
-      <td>—</td>
+  <td><strong>Rotating Topic</strong></td>
+  <td><div><strong>Spring Boot</strong><br/>Create Orders API with validation and @ControllerAdvice; profiles dev/test; write slice tests.</div></td>
+  <td>Building production-grade Java microservices, rapid prototyping, and enterprise backend development with robust configuration and testing support.</td>
       <td><a href="https://www.baeldung.com/" target="_blank" rel="noopener">Baeldung Spring Guides</a> • <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener">Spring Docs</a></td>
     </tr>
             </tbody>
@@ -1781,7 +1918,7 @@
               <tr>
       <td><strong>Rotating Topic</strong></td>
       <td><div><strong>Design Pattern</strong><br/>Implement Strategy + Observer around a pricing/notification domain. Unit test swapping strategies without touching clients.</div></td>
-      <td>—</td>
+  <td>Automated testing, continuous integration, and quality assurance in software development lifecycles.</td>
       <td><a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a> • <a href="https://sourcemaking.com/design_patterns" target="_blank" rel="noopener">Head First Design Patterns Notes</a></td>
     </tr>
             </tbody>
