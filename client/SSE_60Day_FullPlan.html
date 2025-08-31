@@ -2897,8 +2897,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Lazy loading and animated reveal for day cards
 document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.day-card');
-  if (!('IntersectionObserver' in window)) {
-    // Fallback: show all
+  // Always show all cards on mobile (<=900px) for reliability
+  if (window.innerWidth <= 900 || !('IntersectionObserver' in window)) {
     cards.forEach(card => card.classList.add('visible'));
     return;
   }
